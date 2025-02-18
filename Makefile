@@ -1,6 +1,6 @@
-.PHONY : all clean fclean re clear mandatory bonus
+.PHONY : all clean fclean re bonus norminette
 
-NAME = push_swap
+NAME = so_long
 
 # ╭━━━━━━━━━━━━══════════╕出 ❖ BASICS VARIABLES ❖ 力╒═══════════━━━━━━━━━━━━╮ #
 
@@ -18,45 +18,21 @@ SHOW_MSG_CLEAN	=	true
 
 # directories
 D_SRC	=	src/
-D_INST	=	instructions/
-D_UTL	=	utils/
 D_INC	=	inc/
 D_OBJ	=	.obj/
 
-D_UT	=	Tests_et_utils/
-
 # file lists
-LST_SRC		=	main.c				\
-				input_parsing.c		\
-				stacks.c			\
-				radix_sort.c		\
+LST_SRC		=	
 
-LST_UTL		=	pass_next_nb.c		\
-				ft_atol.c			\
-				print.c				\
+LST_INC		=	mlx.h		\
+				mlx_int.h	\
 
-LST_INST	=	swap.c				\
-				push.c				\
-				rotate_reverse.c	\
-
-LST_INC		=	push_swap.h 		\
-
-
-LST_UT		=	stack_print.c		\
 
 # files paths
 SRC		=	$(addprefix $(D_SRC), $(LST_SRC))
-UTL		=	$(addprefix $(D_UTL), $(LST_UTL))
-INST	=	$(addprefix $(D_INST), $(LST_INST))
 INC		=	$(addprefix $(D_INC), $(LST_INC))
 
-UT		=	$(addprefix $(D_UT), $(LST_UT))
-
 OBJ		=	$(subst  $(D_SRC), $(D_OBJ), $(SRC:.c=.o))
-OBJ		+=	$(subst  $(D_UTL), $(D_OBJ), $(UTL:.c=.o))
-OBJ		+=	$(subst  $(D_INST), $(D_OBJ), $(INST:.c=.o))
-
-OBJ		+=	$(subst  $(D_UT), $(D_OBJ), $(UT:.c=.o))
 
 # ╭━━━━━━━━━━━━══════════╕出 ❖ RULES ❖ 力╒═══════════━━━━━━━━━━━━╮ #
 
@@ -100,4 +76,4 @@ re :
 	@echo "\e[0;32mExecutable de push_swap recréé avec succès ! 🫡\e[0m"
 
 norminette:
-	norminette $(D_INC) $(D_SRC) $(D_INST) $(D_UTL)
+	norminette $(D_INC) $(D_SRC)
