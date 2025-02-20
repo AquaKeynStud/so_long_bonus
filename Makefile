@@ -22,10 +22,11 @@ D_INC	=	inc/
 D_OBJ	=	.obj/
 
 # file lists
-LST_SRC		=	window.c \
+LST_SRC		=	main.c \
 
 LST_INC		=	mlx.h		\
 				mlx_int.h	\
+				so_long.h	\
 
 
 # files paths
@@ -39,7 +40,7 @@ OBJ		=	$(subst  $(D_SRC), $(D_OBJ), $(SRC:.c=.o))
 all : $(NAME)
 
 $(NAME)		:	$(OBJ)
-	@$(CC) $(OBJ) -I$(D_INC) -L$(D_INC) -lmlx -lXext -lX11 -o $@
+	@$(CC) $(OBJ) -I$(D_INC) -L$(D_INC) -lmlx -lXext -lX11 -lm -o $@
 	@echo "\e[0;32mProgramme créé avec succès ! 🧬\e[0m"
 
 $(D_OBJ)%.o	:	$(D_SRC)%.c
