@@ -22,7 +22,7 @@ D_INC	=	inc/
 D_OBJ	=	.obj/
 
 # file lists
-LST_SRC		=	
+LST_SRC		=	window.c \
 
 LST_INC		=	mlx.h		\
 				mlx_int.h	\
@@ -39,23 +39,10 @@ OBJ		=	$(subst  $(D_SRC), $(D_OBJ), $(SRC:.c=.o))
 all : $(NAME)
 
 $(NAME)		:	$(OBJ)
-	@$(CC) $(OBJ) -o $@
+	@$(CC) $(OBJ) -I$(D_INC) -L$(D_INC) -lmlx -lXext -lX11 -o $@
 	@echo "\e[0;32mProgramme créé avec succès ! 🧬\e[0m"
 
-$(D_OBJ)%.o	:	$(D_SRC)%.c $(D_INC)push_swap.h
-	@mkdir -p $(D_OBJ)
-	$(CC) $(CFLAGS) -I$(D_INC) -c $< -o $@
-
-$(D_OBJ)%.o	:	$(D_UTL)%.c $(D_INC)push_swap.h
-	@mkdir -p $(D_OBJ)
-	$(CC) $(CFLAGS) -I$(D_INC) -c $< -o $@
-
-$(D_OBJ)%.o	:	$(D_INST)%.c $(D_INC)push_swap.h
-	@mkdir -p $(D_OBJ)
-	$(CC) $(CFLAGS) -I$(D_INC) -c $< -o $@
-
-
-$(D_OBJ)%.o: $(D_UT)%.c $(D_INC)push_swap.h
+$(D_OBJ)%.o	:	$(D_SRC)%.c
 	@mkdir -p $(D_OBJ)
 	$(CC) $(CFLAGS) -I$(D_INC) -c $< -o $@
 
