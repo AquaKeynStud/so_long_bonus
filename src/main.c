@@ -6,11 +6,11 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/02/20 18:57:50 by arocca           ###   ########.fr       */
+/*   Updated: 2025/02/24 10:08:17 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../inc/so_long.h"
 
 int close_window(t_data *data)
 {
@@ -18,7 +18,7 @@ int close_window(t_data *data)
         mlx_destroy_window(data->mlx, data->win);
     if (data->mlx)
     {
-        mlx_destroy_display(data->mlx); // Uniquement sous Linux
+        mlx_destroy_display(data->mlx);
         free(data->mlx);
     }
     exit(0);
@@ -46,9 +46,13 @@ int main(void)
         return (1);
     }
 
+	int width = 0; int	height = 0;
+
+	get_map_size("./maps/map.ber", &width, &height);
+	printf("%i, %i\n", width, height);
+
     mlx_hook(data.win, 17, 0, close_window, &data);
     mlx_key_hook(data.win, handle_keypress, &data);
     mlx_loop(data.mlx);
     return (0);
 }
-
