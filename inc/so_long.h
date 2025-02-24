@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/02/24 12:44:26 by arocca           ###   ########.fr       */
+/*   Updated: 2025/02/24 16:42:38 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct	s_map
 
 /* -- Fonctions -- */
 void	get_map_size(const char *file, t_map *map_data);
+int 	handle_keypress(int keycode, t_data *data);
+int 	close_window(t_data *data);
 void	get_map(const char *file);
 
 #endif

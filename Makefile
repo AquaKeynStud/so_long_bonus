@@ -22,7 +22,7 @@ D_INC	=	inc/
 D_OBJ	=	.obj/
 
 # file lists
-LST_SRC		=	main.c map.c \
+LST_SRC		=	main.c map.c input_handlers.c\
 
 LST_INC		=	mlx.h		\
 				mlx_int.h	\

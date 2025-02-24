@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/02/24 12:13:22 by arocca           ###   ########.fr       */
+/*   Updated: 2025/02/24 16:40:51 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ int close_window(t_data *data)
         free(data->mlx);
     }
     exit(0);
-}
-
-int handle_keypress(int keycode, t_data *data)
-{
-    if (keycode == 65307)
-        close_window(data);
-    return (0);
 }
 
 int main(void)
