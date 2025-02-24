@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/02/24 11:31:06 by arocca           ###   ########.fr       */
+/*   Updated: 2025/02/24 12:47:57 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-void	get_map_size(const char *file, int *width, int *height)
+void	get_map_size(const char *file, t_map *map_data)
 {
 	int		fd;
 	int		actual_width;
@@ -28,26 +28,32 @@ void	get_map_size(const char *file, int *width, int *height)
 	{
 		if (c == '\n')
 		{
-			(*width) = actual_width;
+			map_data -> width = actual_width;
 			actual_width = 0;
-			(*height)++;
+			map_data -> height++;
 		}
 		else
 			actual_width++;
 	}
 	if (actual_width > 0)
-		(*height)++;
+		map_data -> height++;
 	close(fd);
 }
 
 t_case	**free_map(t_case **map)
 {
-	int	i;
-	
-	i = 0;
-	while (map[i])
-		free(map[i++]);
-	free(map);
+    int i;
+
+    if (map == NULL)
+        return (NULL);
+    i = 0;
+    while (map[i] != NULL)
+    {
+        free(map[i]); 
+        i++;
+    }
+    free(map);
+	map = NULL;
 	return (NULL);
 }
 
@@ -58,8 +64,7 @@ t_case	**init_map(int width, int height)
 	int		j;
 
 	i = 0;
-	j = 0;
-	map = malloc(sizeof(t_case *) * height);
+	map = malloc(sizeof(t_case *) * (height + 1));
 	if (!map)
 		return (NULL);
 	while (i < height)
@@ -67,6 +72,7 @@ t_case	**init_map(int width, int height)
 		map[i] = malloc(sizeof(t_case) * width);
 		if (!map[i])
 			return (free_map(map));
+		j = 0;
 		while (j < width)
 		{
 			map[i][j].x = i;
@@ -76,5 +82,44 @@ t_case	**init_map(int width, int height)
 		}
 		i++;
 	}
+	map[i] = NULL;
 	return (map);
+}
+
+void	print_map(t_map *map)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < map -> height)
+	{
+		j = 0;
+		while (j < map -> width)
+		{
+			// Affiche les coordonnées (x, y) et le type de chaque case
+			printf("Case (%d, %d)\n", map -> map[i][j].x, map -> map[i][j].y);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	get_map(const char *file)
+{
+	t_map	*map_data;
+
+	map_data = malloc(sizeof(t_map));
+	if (!map_data)
+		return ;
+	map_data -> width = 0;
+	map_data -> height = 0;
+	get_map_size(file, map_data);
+	printf("%i, %i\n", map_data -> width, map_data -> height);
+	map_data -> map = init_map(map_data -> width, map_data -> height);
+	print_map(map_data);
+	free_map(map_data -> map);
+	free(map_data);
+	map_data = NULL;
+	return ;
 }

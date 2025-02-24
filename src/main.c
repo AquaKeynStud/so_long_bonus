@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/02/24 10:08:17 by arocca           ###   ########.fr       */
+/*   Updated: 2025/02/24 12:13:22 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ int main(void)
         return (1);
     }
 
-	int width = 0; int	height = 0;
-
-	get_map_size("./maps/map.ber", &width, &height);
-	printf("%i, %i\n", width, height);
+	get_map("./maps/map.ber");
 
     mlx_hook(data.win, 17, 0, close_window, &data);
     mlx_key_hook(data.win, handle_keypress, &data);

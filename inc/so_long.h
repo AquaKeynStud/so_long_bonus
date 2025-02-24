@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/02/24 10:26:05 by arocca           ###   ########.fr       */
+/*   Updated: 2025/02/24 12:44:26 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
-	char	**map;
 }				t_data;
 
 typedef struct s_case
@@ -33,7 +32,15 @@ typedef struct s_case
 	char	type;
 }				t_case;
 
+typedef struct	s_map
+{
+	int		width;
+	int		height;
+	t_case	**map;
+}				t_map;
+
 /* -- Fonctions -- */
-void	get_map_size(const char *file, int *width, int *height);
+void	get_map_size(const char *file, t_map *map_data);
+void	get_map(const char *file);
 
 #endif
