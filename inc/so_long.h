@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/02/24 16:42:38 by arocca           ###   ########.fr       */
+/*   Updated: 2025/02/25 23:55:47 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 /* -- Includes -- */
 # include "mlx.h"
 # include "mlx_int.h"
+# include "ft_printf.h"
 # include <stdlib.h>
+# include <stdbool.h>
 
 /* -- Structures -- */
 typedef struct s_data
@@ -39,10 +41,21 @@ typedef struct	s_map
 	t_case	**map;
 }				t_map;
 
-/* -- Fonctions -- */
-void	get_map_size(const char *file, t_map *map_data);
-int 	handle_keypress(int keycode, t_data *data);
+/* -- main functions -- */
 int 	close_window(t_data *data);
-void	get_map(const char *file);
+
+/* -- maps functions -- */
+bool	get_map(const char *file, t_map *map_data);
+
+/* -- parsing functions -- */
+int		map_size_err(const char *file, t_map *map);
+
+/* -- input functions -- */
+int 	handle_keypress(int keycode, t_data *data);
+
+
+/* -- print functions -- */
+void	err(char *message);
+void	print_map(t_map *map);
 
 #endif

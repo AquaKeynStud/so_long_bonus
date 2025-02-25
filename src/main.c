@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/02/24 16:40:51 by arocca           ###   ########.fr       */
+/*   Updated: 2025/02/25 23:28:00 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int close_window(t_data *data)
 
 int main(void)
 {
-    t_data data;
+    t_data	data;
+	t_map	*map_data;
 
     data.mlx = mlx_init();
     if (!data.mlx)
@@ -39,8 +40,9 @@ int main(void)
         return (1);
     }
 
-	get_map("./maps/map.ber");
-
+	map_data = NULL;
+	if (!get_map("./maps/mini.ber", map_data))
+		return (2);
     mlx_hook(data.win, 17, 0, close_window, &data);
     mlx_key_hook(data.win, handle_keypress, &data);
     mlx_loop(data.mlx);
