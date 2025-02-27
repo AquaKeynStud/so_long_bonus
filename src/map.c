@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/02/25 23:53:00 by arocca           ###   ########.fr       */
+/*   Updated: 2025/02/27 18:03:39 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 static void	free_map(t_map *map)
 {
-	int i;
+	int	i;
 
 	if (map == NULL)
 		return ;
@@ -26,7 +26,7 @@ static void	free_map(t_map *map)
 	{
 		while (map -> map[i] != NULL)
 		{
-			free(map -> map[i]); 
+			free(map -> map[i]);
 			i++;
 		}
 		free(map -> map);
@@ -89,25 +89,6 @@ static void	fill_map(const char *file, t_map *map)
 	close(fd);
 }
 
-void	print_map(t_map *map)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < map -> height)
-	{
-		j = 0;
-		while (j < map -> width)
-		{
-			ft_printf("Case (%d, %d) -> %c\n", map -> map[i][j].x, map -> map[i][j].y, map -> map[i][j].type);
-			j++;
-		}
-		ft_printf("\n");
-		i++;
-	}
-}
-
 bool	get_map(const char *file, t_map *map_data)
 {
 	map_data = malloc(sizeof(t_map));
@@ -120,6 +101,11 @@ bool	get_map(const char *file, t_map *map_data)
 	printf("%i, %i\n", map_data -> width, map_data -> height);
 	init_map(map_data);
 	fill_map(file, map_data);
+	if (!is_wall_surrounded(map_data))
+	{
+		free_map(map_data);
+		return (false);
+	}
 	print_map(map_data);
 	free_map(map_data);
 	return (true);

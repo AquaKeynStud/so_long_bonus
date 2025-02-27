@@ -22,11 +22,16 @@ D_INC	=	inc/
 D_OBJ	=	.obj/
 
 # file lists
-LST_SRC		=	main.c map.c input_handlers.c parsing.c\
+LST_SRC		=	main.c				\
+				map.c				\
+				input_handlers.c	\
+				parsing.c			\
+				printers.c			\
+				utils.c				\
 
-LST_INC		=	mlx.h		\
-				mlx_int.h	\
-				so_long.h	\
+LST_INC		=	mlx.h				\
+				mlx_int.h			\
+				so_long.h			\
 
 
 # files paths
