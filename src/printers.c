@@ -6,17 +6,22 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 23:36:46 by arocca            #+#    #+#             */
-/*   Updated: 2025/02/27 18:00:01 by arocca           ###   ########.fr       */
+/*   Updated: 2025/02/28 18:36:30 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <unistd.h>
 
-void	err(char *message)
+int	err(char *message)
 {
-	write(2, "\033[31m\033[1m", 0);
-	write(2, message, ft_strlen(message));
-	write(2, "\033[0m", 0);
+	int	len;
+
+	len = ft_strlen(message);
+	ft_printf("\033[31m\033[1m\033[47m     ");
+	ft_printf(message);
+	ft_printf("     \033[0m\n");
+	return (len);
 }
 
 void	print_map(t_map *map)
