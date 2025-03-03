@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/02/28 18:31:54 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/03 12:56:38 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	map_size_init_err(const char *file, t_map *map)
 		if (c == '\n')
 		{
 			if (count == 0 || (map -> width != 0 && count != map -> width))
-				return (1);
+				return (err("The map size is invalid"));
 			map -> width = count;
 			map -> height++;
 			count = 0;
@@ -44,25 +44,25 @@ static int	map_size_init_err(const char *file, t_map *map)
 	return (0);
 }
 
-static bool	free_map(t_map *map)
+bool	free_map(t_map **map)
 {
 	int	i;
 
-	if (!map)
+	if (!(*map))
 		return (false);
 	i = 0;
-	if (map -> map)
+	if ((*map) -> map)
 	{
-		while (map -> map[i] != NULL)
+		while ((*map) -> map[i] != NULL)
 		{
-			free(map -> map[i]);
+			free((*map) -> map[i]);
 			i++;
 		}
-		free(map -> map);
-		map -> map = NULL;
+		free((*map) -> map);
+		(*map) -> map = NULL;
 	}
-	free(map);
-	map = NULL;
+	free(*map);
+	(*map) = NULL;
 	return (false);
 }
 
@@ -79,13 +79,14 @@ static bool	init_map(t_map *map_data)
 	{
 		map_data -> map[i] = malloc(sizeof(t_case) * map_data -> width);
 		if (!map_data -> map[i])
-			return (free_map(map_data));
+			return (free_map(&map_data));
 		j = 0;
 		while (j < map_data -> width)
 		{
 			map_data -> map[i][j].x = i;
 			map_data -> map[i][j].y = j;
 			map_data -> map[i][j].type = '\0';
+			map_data -> map[i][j].verified = false;
 			j++;
 		}
 		i++;
@@ -120,21 +121,19 @@ static void	fill_map(const char *file, t_map *map)
 	close(fd);
 }
 
-bool	get_map(const char *file, t_map *map_data)
+bool	get_map(const char *file, t_map **map_data)
 {
-	map_data = malloc(sizeof(t_map));
-	if (!map_data)
+	(*map_data) = malloc(sizeof(t_map));
+	if (!(*map_data))
 		return (false);
-	map_data -> width = 0;
-	map_data -> height = 0;
-	if (map_size_init_err(file, map_data))
+	(*map_data) -> width = 0;
+	(*map_data) -> height = 0;
+	if (map_size_init_err(file, (*map_data)))
 		return (free_map(map_data));
-	ft_printf("width : %i, height : %i\n", map_data -> width, map_data -> height); // Optionnel
-	init_map(map_data);
-	fill_map(file, map_data);
-	if (err_map_parsing(map_data))
+	init_map(*map_data);
+	fill_map(file, (*map_data));
+	if (err_map_parsing(*map_data))
 		return (free_map(map_data));
-	print_map(map_data); // Optionnel
-	free_map(map_data); // A enlever pour récupérer la map dans le main
+	print_map(*map_data); // Optionnel
 	return (true);
 }

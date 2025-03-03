@@ -19,6 +19,7 @@ SHOW_MSG_CLEAN	=	true
 # directories
 D_SRC	=	src/
 D_INC	=	inc/
+D_LIB	=	librairies/
 D_OBJ	=	.obj/
 
 # file lists
@@ -28,10 +29,11 @@ LST_SRC		=	main.c				\
 				parsing.c			\
 				printers.c			\
 				utils.c				\
+				bfs.c				\
 
 LST_INC		=	mlx.h				\
 				mlx_int.h			\
-				so_long.h			\
+				$(NAME).h			\
 
 
 # files paths
@@ -45,7 +47,7 @@ OBJ		=	$(subst  $(D_SRC), $(D_OBJ), $(SRC:.c=.o))
 all : $(NAME)
 
 $(NAME)		:	$(OBJ)
-	@$(CC) $(OBJ) -I$(D_INC) -L$(D_INC) -lmlx -lXext -lX11 -lm -lftprintf -o $@
+	@$(CC) $(OBJ) -I$(D_INC) -L$(D_LIB) -lmlx -lXext -lX11 -lm -lftprintf -o $@
 	@echo "\e[0;32mProgramme créé avec succès ! 🧬\e[0m"
 
 $(D_OBJ)%.o	:	$(D_SRC)%.c
@@ -54,19 +56,19 @@ $(D_OBJ)%.o	:	$(D_SRC)%.c
 
 clean:
 ifeq ($(SHOW_MSG_CLEAN), true)
-	@echo "\e[0;36mJ'ai enlevé tous les objets relatifs à push_swap 🧹\e[0m"
+	@echo "\e[0;36mJ'ai enlevé tous les objets relatifs à $(NAME) 🧹\e[0m"
 endif
 	@$(RM) $(D_OBJ)
 
 fclean:
 	@$(MAKE) -s SHOW_MSG_CLEAN=false clean
 	@$(RM) $(NAME) mandatory_tester bonus_tester .bonus
-	@echo "\e[0;34mExecutable de push_swap nettoyé 🧼\e[0m"
+	@echo "\e[0;34mExecutable de $(NAME) nettoyé 🧼\e[0m"
 
 re :
 	$(MAKE) fclean
 	$(MAKE) all
-	@echo "\e[0;32mExecutable de push_swap recréé avec succès ! 🫡\e[0m"
+	@echo "\e[0;32mProgramme $(NAME) recréé avec succès ! 🫡\e[0m"
 
 norminette:
 	norminette $(D_INC) $(D_SRC)
