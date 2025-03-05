@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/03 12:55:43 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/05 01:16:35 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	close_window(t_data *data, int exit_code)
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
-	if (data->map_data)
-		free_map(&data->map_data);
 	if (exit_code == EXIT_SUCCESS)
 		ft_printf("\033[32m\033[47m\033[1m    • So_Long ended •    \033[0m\n");
 	exit(exit_code);
@@ -42,6 +40,12 @@ bool	mlx_create(t_data *data)
 	return (true);
 }
 
+static int	end_loop(t_data *data)
+{
+	mlx_loop_end(data->mlx);
+	return (0);
+}
+
 int	main(void)
 {
 	t_data	data;
@@ -52,9 +56,10 @@ int	main(void)
 		return (err("Error : Something went wrong during window creation"));
 	if (!get_map("./maps/map.ber", &map_data))
 		return (close_window(&data, EXIT_FAILURE));
-	data.map_data = map_data;
-	mlx_hook(data.win, 17, 0, close_window, &data);
+	mlx_hook(data.win, 17, 0, end_loop, &data);
 	mlx_key_hook(data.win, handle_keypress, &data);
 	mlx_loop(data.mlx);
+	free_map(&map_data);
+	close_window(&data, EXIT_SUCCESS);
 	return (0);
 }

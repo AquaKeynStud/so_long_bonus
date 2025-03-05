@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/03 12:48:19 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/05 01:16:23 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # include <stdbool.h>
 
 /* -- Structures -- */
+typedef struct s_data
+{
+	void	*mlx;
+	void	*win;
+}				t_data;
+
 typedef struct s_case
 {
 	int		x;
@@ -44,15 +50,8 @@ typedef struct s_queue
 	int		size;
 }				t_queue;
 
-typedef struct s_data
-{
-	void	*mlx;
-	void	*win;
-	t_map	*map_data;
-}				t_data;
-
 /* -- main functions -- */
-int	close_window(t_data *data, int exit_code);
+int		close_window(t_data *data, int exit_code);
 
 /* -- maps functions -- */
 bool	free_map(t_map **map);

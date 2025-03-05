@@ -72,3 +72,5 @@ re :
 
 norminette:
 	norminette $(D_INC) $(D_SRC)
+
+# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes

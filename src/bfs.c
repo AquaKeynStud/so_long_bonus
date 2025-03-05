@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 11:44:59 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/03 12:48:35 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/03 13:26:10 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	bfs(t_map *map, int start_x, int start_y)
 
 bool	is_item_unreachable(t_case cell)
 {
-	if (cell.verified == true || cell.type == '0')
+	if (cell.verified == true || cell.type == '1' || cell.type == '0')
 		return (false);
 	return (true);
 }
