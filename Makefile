@@ -18,6 +18,7 @@ SHOW_MSG_CLEAN	=	true
 
 # directories
 D_SRC	=	src/
+D_PRI	=	$(D_SRC)printers/
 D_INC	=	inc/
 D_LIB	=	librairies/
 D_OBJ	=	.obj/
@@ -27,20 +28,24 @@ LST_SRC		=	main.c				\
 				map.c				\
 				input_handlers.c	\
 				parsing.c			\
-				printers.c			\
 				utils.c				\
 				bfs.c				\
+				images.c
+
+LST_PRI		=	err_printers.c		\
+				map_printers.c		
 
 LST_INC		=	mlx.h				\
 				mlx_int.h			\
-				$(NAME).h			\
+				$(NAME).h			
 
 
 # files paths
 SRC		=	$(addprefix $(D_SRC), $(LST_SRC))
+PRI		=	$(addprefix $(D_PRI), $(LST_PRI))
 INC		=	$(addprefix $(D_INC), $(LST_INC))
 
-OBJ		=	$(subst  $(D_SRC), $(D_OBJ), $(SRC:.c=.o))
+OBJ = $(addprefix $(D_OBJ), $(patsubst %.c, %.o, $(LST_SRC) $(LST_PRI)))
 
 # ╭━━━━━━━━━━━━══════════╕出 ❖ RULES ❖ 力╒═══════════━━━━━━━━━━━━╮ #
 
@@ -50,7 +55,9 @@ $(NAME)		:	$(OBJ)
 	@$(CC) $(OBJ) -I$(D_INC) -L$(D_LIB) -lmlx -lXext -lX11 -lm -lftprintf -o $@
 	@echo "\e[0;32mProgramme créé avec succès ! 🧬\e[0m"
 
-$(D_OBJ)%.o	:	$(D_SRC)%.c
+vpath %.c $(D_SRC) $(D_PRI)
+
+$(D_OBJ)%.o	:	%.c
 	@mkdir -p $(D_OBJ)
 	$(CC) $(CFLAGS) -I$(D_INC) -c $< -o $@
 

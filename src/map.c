@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/05 00:18:04 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/05 11:26:16 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	map_size_init_err(const char *file, t_map *map)
 	count = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (err("The map you're trying to open doesn't exist..."));
+		return (err_errno(errno));
 	while (read(fd, &c, 1) > 0)
 	{
 		if (c == '\n')

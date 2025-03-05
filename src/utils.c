@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:51:56 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/03 12:31:08 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/05 16:31:58 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,35 @@ int	get_asset_pos(t_map *map, char asset, char axis)
 		i++;
 	}
 	return (0);
+}
+
+int	find_type(t_case cell)
+{
+	char	*types;
+	int		i;
+
+	types = "01PCE";
+	i = 0;
+	while (types[i])
+	{
+		if (types[i] == cell.type)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+void	*get_img(t_images *img, int type)
+{
+	if (type == 0)
+		return (img->wall);
+	if (type == 1)
+		return (img->floor);
+	if (type == 3)
+		return (img->player);
+	if (type == 4)
+		return (img->collec);
+	if (type == 5)
+		return (img->exit);
+	return (NULL);
 }

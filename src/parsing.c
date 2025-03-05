@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:55:15 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/05 01:00:23 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/05 16:16:21 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,7 @@ static bool	isnt_wall_surrounded(t_map *map, int width, int height)
 
 static bool	is_type_forbidden(t_case cell)
 {
-	char	*types;
-
-	types = "01PCE";
-	while (*types)
-	{
-		if (*types++ == cell.type)
-			return (false);
-	}
-	return (true);
+	return (find_type(cell) == -1);
 }
 
 static bool	double_player_error(t_case cell)
