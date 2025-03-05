@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/05 18:26:28 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/05 20:56:44 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	main(int argc, char **argv)
 	mlx_hook(data.win, 17, 0, end_loop, &data);
 	mlx_key_hook(data.win, handle_keypress, &data);
 	mlx_loop(data.mlx);
+	free_images(&data, &images);
 	free_map(&map_data);
 	close_window(&data, EXIT_SUCCESS);
 	return (0);

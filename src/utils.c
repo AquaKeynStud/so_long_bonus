@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:51:56 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/05 16:31:58 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/05 20:25:49 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ int	find_type(t_case cell)
 void	*get_img(t_images *img, int type)
 {
 	if (type == 0)
-		return (img->wall);
-	if (type == 1)
 		return (img->floor);
-	if (type == 3)
+	if (type == 1)
+		return (img->wall);
+	if (type == 2)
 		return (img->player);
-	if (type == 4)
+	if (type == 3)
 		return (img->collec);
-	if (type == 5)
+	if (type == 4)
 		return (img->exit);
 	return (NULL);
 }
