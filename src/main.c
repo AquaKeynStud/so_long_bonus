@@ -6,10 +6,11 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/05 20:56:44 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/06 16:28:52 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "printers.h"
 #include "so_long.h"
 
 int	close_window(t_data *data, int exit_code)
@@ -26,7 +27,7 @@ int	close_window(t_data *data, int exit_code)
 	exit(exit_code);
 }
 
-bool	mlx_create(t_data *data, int width, int height)
+bool	window_create(t_data *data, int width, int height)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
@@ -73,8 +74,8 @@ int	main(int argc, char **argv)
 	if (argc != 2 || !verif_ext(argv[1], ".ber"))
 		return (err_v("Error : Format has to be : %s <map>.ber", argv[0]));
 	if (!get_map(argv[1], &map_data))
-		return (close_window(&data, EXIT_FAILURE));
-	if (!mlx_create(&data, map_data->width, map_data->height))
+		return (1);
+	if (!window_create(&data, map_data->width, map_data->height))
 		return (err("Error : Something went wrong during window creation"));
 	if (!init_images(data.mlx, &images))
 		return (1);

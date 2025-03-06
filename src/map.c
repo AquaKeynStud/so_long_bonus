@@ -6,14 +6,16 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/05 11:26:16 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/06 16:24:59 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "printers.h"
 #include "so_long.h"
+#include "parsing.h"
+#include "map.h"
 #include <fcntl.h>
 #include <unistd.h>
-#include <stdbool.h>
 
 static int	map_size_init_err(const char *file, t_map *map)
 {
@@ -29,17 +31,17 @@ static int	map_size_init_err(const char *file, t_map *map)
 	{
 		if (c == '\n')
 		{
-			if (count == 0 || (map -> width != 0 && count != map -> width))
+			if (count == 0 || (map->width != 0 && count != map->width))
 				return (err("The map size is invalid"));
-			map -> width = count;
-			map -> height++;
+			map->width = count;
+			map->height++;
 			count = 0;
 		}
 		else
 			count++;
 	}
-	if (count && count == map -> width)
-		map -> height++;
+	if (count && count == map->width)
+		map->height++;
 	close(fd);
 	return (0);
 }
@@ -51,15 +53,15 @@ bool	free_map(t_map **map)
 	if (!(*map))
 		return (false);
 	i = 0;
-	if ((*map) -> map)
+	if ((*map)->map)
 	{
-		while ((*map) -> map[i] != NULL)
+		while ((*map)->map[i] != NULL)
 		{
-			free((*map) -> map[i]);
+			free((*map)->map[i]);
 			i++;
 		}
-		free((*map) -> map);
-		(*map) -> map = NULL;
+		free((*map)->map);
+		(*map)->map = NULL;
 	}
 	free(*map);
 	(*map) = NULL;
@@ -72,26 +74,26 @@ static bool	init_map(t_map *map_data)
 	int		j;
 
 	i = 0;
-	map_data -> map = malloc(sizeof(t_case *) * (map_data -> height + 1));
-	if (!map_data -> map)
+	map_data->map = malloc(sizeof(t_case *) * (map_data->height + 1));
+	if (!map_data->map)
 		return (false);
-	while (i < map_data -> height)
+	while (i < map_data->height)
 	{
-		map_data -> map[i] = malloc(sizeof(t_case) * map_data -> width);
-		if (!map_data -> map[i])
+		map_data->map[i] = malloc(sizeof(t_case) * map_data->width);
+		if (!map_data->map[i])
 			return (free_map(&map_data));
 		j = 0;
-		while (j < map_data -> width)
+		while (j < map_data->width)
 		{
-			map_data -> map[i][j].x = i;
-			map_data -> map[i][j].y = j;
-			map_data -> map[i][j].type = '\0';
-			map_data -> map[i][j].verified = false;
+			map_data->map[i][j].x = j;
+			map_data->map[i][j].y = i;
+			map_data->map[i][j].type = '\0';
+			map_data->map[i][j].verified = false;
 			j++;
 		}
 		i++;
 	}
-	map_data -> map[i] = NULL;
+	map_data->map[i] = NULL;
 	return (true);
 }
 
@@ -106,13 +108,13 @@ static void	fill_map(const char *file, t_map *map)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return ;
-	while (i < map -> height)
+	while (i < map->height)
 	{
 		j = 0;
-		while (j < map -> width)
+		while (j < map->width)
 		{
 			read(fd, &c, 1);
-			map -> map[i][j].type = c;
+			map->map[i][j].type = c;
 			j++;
 		}
 		read(fd, &c, 1);
@@ -126,14 +128,18 @@ bool	get_map(const char *file, t_map **map_data)
 	(*map_data) = malloc(sizeof(t_map));
 	if (!(*map_data))
 		return (false);
-	(*map_data) -> width = 0;
-	(*map_data) -> height = 0;
+	(*map_data)->width = 0;
+	(*map_data)->height = 0;
 	if (map_size_init_err(file, (*map_data)))
 		return (free_map(map_data));
+	if ((*map_data)->width > 30 || (*map_data)->height > 16)
+	{
+		err("Error : The map shouldn't exceed the screen size");
+		return (free_map(map_data));
+	}
 	init_map(*map_data);
 	fill_map(file, (*map_data));
 	if (err_map_parsing(*map_data))
 		return (free_map(map_data));
-	print_map(*map_data); // Optionnel
 	return (true);
 }
