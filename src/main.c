@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/06 16:28:52 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/07 14:48:02 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,20 @@ int	close_window(t_data *data, int exit_code)
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
+	if (data->map)
+		free_map(data->map);
 	if (exit_code == EXIT_SUCCESS)
 		ft_printf("\033[32m\033[47m\033[1m    • So_Long ended •    \033[0m\n");
 	exit(exit_code);
 }
 
-bool	window_create(t_data *data, int width, int height)
+bool	window_create(t_data *data, t_map **map_data)
 {
+	int	width;
+	int	height;
+
+	width = (*map_data)->width;
+	height = (*map_data)->height;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (false);
@@ -38,6 +45,8 @@ bool	window_create(t_data *data, int width, int height)
 		free(data->mlx);
 		return (false);
 	}
+	data->images = NULL;
+	data->map = map_data;
 	return (true);
 }
 
@@ -73,18 +82,18 @@ int	main(int argc, char **argv)
 	map_data = NULL;
 	if (argc != 2 || !verif_ext(argv[1], ".ber"))
 		return (err_v("Error : Format has to be : %s <map>.ber", argv[0]));
-	if (!get_map(argv[1], &map_data))
+	if (!get_map(argv[1], &map_data, &data))
 		return (1);
-	if (!window_create(&data, map_data->width, map_data->height))
+	if (!window_create(&data, &map_data))
 		return (err("Error : Something went wrong during window creation"));
 	if (!init_images(data.mlx, &images))
-		return (1);
-	display_images(data.mlx, data.win, &images, map_data);
+		return (close_window(&data, EXIT_FAILURE));
+	data.images = &images;
+	display_images(data.mlx, data.win, images, map_data);
 	mlx_hook(data.win, 17, 0, end_loop, &data);
 	mlx_key_hook(data.win, handle_keypress, &data);
 	mlx_loop(data.mlx);
 	free_images(&data, &images);
-	free_map(&map_data);
 	close_window(&data, EXIT_SUCCESS);
 	return (0);
 }

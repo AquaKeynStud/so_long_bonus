@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:12:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/06 16:25:46 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/07 11:07:56 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PRINTERS_H
 
 /* -- Includes -- */
-# include "map.h"
+# include "so_long.h"
 # include <errno.h>
 
 /* -- Functions -- */

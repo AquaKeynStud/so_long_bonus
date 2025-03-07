@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:10:11 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/06 16:21:15 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/07 13:44:02 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef struct s_queue
 }				t_queue;
 
 /* -- Functions -- */
-int		err_map_parsing(t_map	*map);
 bool	is_item_unreachable(t_case cell);
+int	err_map_parsing(t_map *map, t_data *data);
 void	bfs(t_map *map, int start_x, int start_y);
 
 #endif

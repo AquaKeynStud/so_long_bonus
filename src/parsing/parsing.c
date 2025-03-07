@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:55:15 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/06 16:37:31 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/07 13:44:15 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static bool	double_exit_error(t_case cell)
 	return (cell.type == 'E');
 }
 
-int	err_map_parsing(t_map	*map)
+int	err_map_parsing(t_map *map, t_data *data)
 {
 	if (isnt_wall_surrounded(map, map -> width - 1, map -> height - 1))
 		return (1);
@@ -62,8 +62,7 @@ int	err_map_parsing(t_map	*map)
 		return (err("The map contains less or more than 1 player"));
 	if (browse_map(map, double_exit_error) != 1)
 		return (err("The map contains less or more than 1 exit"));
-	ft_printf("%i, %i\n", get_asset_pos(map, 'P', 'x'), get_asset_pos(map, 'P', 'y'));
-	bfs(map, get_asset_pos(map, 'P', 'x'), get_asset_pos(map, 'P', 'y'));
+	bfs(map, data->pos[1], data->pos[0]);
 	if (browse_map(map, is_item_unreachable))
 		return (err("Some objects on the map are unreachable"));
 	return (0);

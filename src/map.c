@@ -6,14 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/06 16:24:59 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/07 16:01:31 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printers.h"
 #include "so_long.h"
 #include "parsing.h"
-#include "map.h"
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -97,7 +96,7 @@ static bool	init_map(t_map *map_data)
 	return (true);
 }
 
-static void	fill_map(const char *file, t_map *map)
+static void	fill_map(const char *file, t_map *map, t_data *data)
 {
 	char	c;
 	int		i;
@@ -105,6 +104,7 @@ static void	fill_map(const char *file, t_map *map)
 	int		fd;
 
 	i = 0;
+	data->collectible = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return ;
@@ -115,6 +115,8 @@ static void	fill_map(const char *file, t_map *map)
 		{
 			read(fd, &c, 1);
 			map->map[i][j].type = c;
+			if (c == 'C')
+				data->collectible++;
 			j++;
 		}
 		read(fd, &c, 1);
@@ -123,7 +125,7 @@ static void	fill_map(const char *file, t_map *map)
 	close(fd);
 }
 
-bool	get_map(const char *file, t_map **map_data)
+bool	get_map(const char *file, t_map **map_data, t_data *data)
 {
 	(*map_data) = malloc(sizeof(t_map));
 	if (!(*map_data))
@@ -138,8 +140,10 @@ bool	get_map(const char *file, t_map **map_data)
 		return (free_map(map_data));
 	}
 	init_map(*map_data);
-	fill_map(file, (*map_data));
-	if (err_map_parsing(*map_data))
+	fill_map(file, (*map_data), data);
+	data->pos[0] = get_asset_pos(*map_data, 'P', 'y');
+	data->pos[1] = get_asset_pos(*map_data, 'P', 'x');
+	if (err_map_parsing(*map_data, data))
 		return (free_map(map_data));
 	return (true);
 }

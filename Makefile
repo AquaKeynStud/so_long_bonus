@@ -39,10 +39,10 @@ LST_PRI		=	err_printers.c		\
 LST_PAR		=	parsing.c			\
 				bfs.c		
 
-LST_IMG		=	images.c			\
+LST_IMG		=	display_img.c		\
+				load_img.c
 
 LST_INC		=	ft_printf.h			\
-				map.h				\
 				mlx_int.h			\
 				mlx.h				\
 				parsing.h			\

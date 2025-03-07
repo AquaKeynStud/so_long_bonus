@@ -1,40 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   display_img.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 16:14:55 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/06 16:17:02 by arocca           ###   ########.fr       */
+/*   Created: 2025/03/05 14:15:19 by arocca            #+#    #+#             */
+/*   Updated: 2025/03/07 14:50:04 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#include "printers.h"
+#include "so_long.h"
 
-/* -- Includes -- */
-# include <stdlib.h>
-# include <stdbool.h>
-
-/* -- Structures -- */
-typedef struct s_case
+void	display_images(void *mlx, void *win, t_images img, t_map *map_data)
 {
 	int		x;
 	int		y;
-	char	type;
-	bool	verified;
-}				t_case;
+	char	t;
+	void	*image;
 
-typedef struct s_map
-{
-	int		width;
-	int		height;
-	t_case	**map;
-}				t_map;
-
-/* -- Functions -- */
-bool	free_map(t_map **map);
-bool	get_map(const char *file, t_map **map_data);
-
-#endif
+	y = 0;
+	while (y < map_data->height)
+	{
+		x = 0;
+		while (x < map_data->width)
+		{
+			t = find_type(map_data->map[y][x]);
+			image = get_img(img, t);
+			if (image)
+				mlx_put_image_to_window(mlx, win, image, x * SX, y * SY);
+			x++;
+		}
+		y++;
+	}
+}
