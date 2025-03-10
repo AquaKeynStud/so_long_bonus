@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 13:32:08 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 15:04:37 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_map
 
 typedef struct s_data
 {
-	int			pos[2];
+	int			pyx[2];
 	int			collectible;
 	int			moves;
 	int			winw;
@@ -63,6 +63,8 @@ typedef struct s_data
 # define SY 64
 # define MAXH 18
 # define MAXW 30
+
+# define CHARW 6
 
 # define KEY_ESC 65307
 # define KEY_W 122 // 119
@@ -82,6 +84,7 @@ bool	get_map(const char *file, t_map **map_data, t_data *data);
 
 /* -- Input functions -- */
 int		handle_keypress(int keycode, t_data *data);
+bool	move_player(t_data *data, t_map *map, t_case *aim);
 
 /* -- Images functions -- */
 bool	init_images(void *mlx, t_images *img);
@@ -101,6 +104,8 @@ void	print_map(t_map *map);
 void	print_win(t_data *data, int pos[2], char *text, int moves);
 
 /* -- Utils -- */
+char	*ft_itoa(int n);
+
 int		find_type(t_case cell);
 int		get_pos(t_map *map, char axis);
 int		browse_map(t_map *map, bool (*function)(t_case cell));

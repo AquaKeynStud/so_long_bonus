@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 13:33:27 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:19:58 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ bool	get_map(const char *file, t_map **map_data, t_data *data)
 		return (free_map(map_data));
 	init_map(*map_data);
 	fill_map(file, (*map_data), data);
-	get_axis(data->pos, get_pos(*map_data, 'y'), get_pos(*map_data, 'x'));
+	get_axis(data->pyx, get_pos(*map_data, 'y'), get_pos(*map_data, 'x'));
 	if (err_map_parsing(*map_data, data))
 		return (free_map(map_data));
 	data->map = map_data;

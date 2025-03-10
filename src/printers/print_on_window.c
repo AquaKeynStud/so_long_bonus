@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 10:26:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 13:53:33 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:58:24 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static long	make_lpos(int n)
 		return (nbr);
 }
 
-static char	*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*str;
 	int		digit_nbr;
@@ -68,7 +68,11 @@ void	print_win(t_data *data, int pos[2], char *text, int moves)
 	letter_width = 6;
 	x_len = pos[0] / SX;
 	y_len = pos[1] / SY;
-	update_images(data, &(*data->map)->map[y_len][x_len + 1], x_len, y_len);
+	if ((*data->map)->height < MAXH || (*data->map)->width < MAXW)
+	{
+		update_images(data, &(*data->map)->map[y_len][x_len + 1], x_len, y_len);
+		ft_printf("Okifboifd");
+	}
 	if (*text)
 	{
 		print_on_win(data, pos, WHITE, text);

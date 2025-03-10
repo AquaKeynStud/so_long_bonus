@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 13:33:38 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:58:44 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int	main(int argc, char **argv)
 		return (err("Error : Something went wrong during window creation"));
 	if (!init_images(data.mlx, &images))
 		return (close_window(&data, EXIT_FAILURE));
-	get_axis(pos, data.pos[1], data.pos[0]);
-	if (map->height > MAXW || map->width > MAXW)
+	get_axis(pos, data.pyx[1], data.pyx[0]);
+	if (map->height > MAXH || map->width > MAXW)
 		display_player(&data, pos, images, map);
 	else
 		display_images(data.mlx, data.win, images, map);

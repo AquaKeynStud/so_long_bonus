@@ -23,15 +23,15 @@ D_OBJ	=	.obj/
 D_LIB	=	librairies/
 D_PAR	=	$(D_SRC)parsing/
 D_PRI	=	$(D_SRC)printers/
+D_KEY	=	$(D_SRC)input_handler/
 D_IMG	=	$(D_SRC)display_handler/
 
-D_SRCS	= $(D_SRC) $(D_PRI) $(D_PAR) $(D_IMG)
+D_SRCS	= $(D_SRC) $(D_PRI) $(D_PAR) $(D_IMG) $(D_KEY)
 
 # file lists
 LST_SRC		=	map.c				\
 				main.c				\
-				utils.c				\
-				input_handlers.c	
+				utils.c				
 
 LST_PRI		=	err_printers.c		\
 				map_printers.c		\
@@ -43,13 +43,16 @@ LST_PAR		=	bfs.c				\
 LST_IMG		=	load_img.c			\
 				display_img.c		
 
+LST_KEY		=	actions.c			\
+				input_detector.c	
+
 LST_INC		=	mlx.h				\
 				mlx_int.h			\
 				parsing.h			\
 				$(NAME).h			\
 				ft_printf.h			
 
-LST_SRCS	=	$(LST_SRC) $(LST_PRI) $(LST_PAR) $(LST_IMG)
+LST_SRCS	=	$(LST_SRC) $(LST_PRI) $(LST_PAR) $(LST_IMG) $(LST_KEY)
 
 INC	=	$(addprefix $(D_INC), $(LST_INC))
 
