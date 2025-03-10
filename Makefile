@@ -47,7 +47,6 @@ LST_INC		=	mlx.h				\
 				mlx_int.h			\
 				parsing.h			\
 				$(NAME).h			\
-				printers.h			\
 				ft_printf.h			
 
 LST_SRCS	=	$(LST_SRC) $(LST_PRI) $(LST_PAR) $(LST_IMG)
@@ -87,6 +86,6 @@ re :
 	@echo "\e[0;32mProgramme $(NAME) recréé avec succès ! 🫡\e[0m"
 
 norminette:
-	norminette $(D_SRCS) $(D_INC)ft_printf.h $(D_INC)parsing.h $(D_INC)printers.h $(D_INC)$(NAME).h
+	norminette $(D_SRC) $(D_INC)ft_printf.h $(D_INC)parsing.h $(D_INC)$(NAME).h
 
 # valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes

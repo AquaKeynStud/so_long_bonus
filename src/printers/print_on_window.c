@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 10:26:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/09 20:12:43 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:53:33 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,17 @@ static char	*ft_itoa(int n)
 	return (str);
 }
 
-void	print_win(t_data *data, int pos[2], char *text, int	moves)
+void	print_win(t_data *data, int pos[2], char *text, int moves)
 {
-	char 	*str;
+	char	*str;
 	int		letter_width;
+	int		x_len;
+	int		y_len;
 
 	letter_width = 6;
-	// update_images(data, &(*data->map)->map[pos[1] / SY][(pos[0] / SX) + 1], (pos[0] / SX), (pos[1] / SY));
+	x_len = pos[0] / SX;
+	y_len = pos[1] / SY;
+	update_images(data, &(*data->map)->map[y_len][x_len + 1], x_len, y_len);
 	if (*text)
 	{
 		print_on_win(data, pos, WHITE, text);

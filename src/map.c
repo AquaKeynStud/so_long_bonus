@@ -6,15 +6,15 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 09:19:15 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:33:27 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printers.h"
 #include "so_long.h"
 #include "parsing.h"
 #include <fcntl.h>
 #include <unistd.h>
+#include <errno.h>
 
 static int	map_size_init_err(const char *file, t_map *map)
 {

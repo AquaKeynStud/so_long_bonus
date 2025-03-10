@@ -6,11 +6,10 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:43:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/07 14:46:28 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:33:55 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printers.h"
 #include "so_long.h"
 
 void	free_images(t_data *data, t_images *img)

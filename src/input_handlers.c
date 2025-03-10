@@ -6,12 +6,11 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:40:53 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 12:31:48 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:33:44 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "printers.h"
 
 bool	move_player(t_data *data, t_map *map, t_case *aim)
 {

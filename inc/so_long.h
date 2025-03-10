@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 12:33:34 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:32:08 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define SO_LONG_H
 
 /* -- Includes -- */
+# include <stdlib.h>
+# include <stdbool.h>
 # include "mlx.h"
 # include "mlx_int.h"
 # include "ft_printf.h"
-# include <stdlib.h>
-# include <stdbool.h>
 
 /* -- Structures -- */
 typedef struct s_images
@@ -73,9 +73,6 @@ typedef struct s_data
 # define BLACK 0x000000
 # define WHITE 0xFFFFFF
 
-/* -- Linked includes -- */
-# include "printers.h"
-
 /* -- Main functions -- */
 int		close_window(t_data *data, int exit_code);
 
@@ -94,6 +91,14 @@ void	update_images(t_data *data, t_case *aim, int x, int y);
 void	print_on_win(t_data *data, int *axis, int color, char *txt);
 void	display_images(void *m, void *w, t_images img, t_map *map_data);
 void	display_player(t_data *data, int *pos, t_images img, t_map *map_data);
+
+/* -- Print functions -- */
+int		err(char *message);
+int		err_errno(int errnum);
+int		err_v(char *message, char *value);
+
+void	print_map(t_map *map);
+void	print_win(t_data *data, int pos[2], char *text, int moves);
 
 /* -- Utils -- */
 int		find_type(t_case cell);

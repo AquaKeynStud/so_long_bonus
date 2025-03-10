@@ -6,26 +6,25 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:15:19 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 12:33:42 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:16:53 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printers.h"
 #include "so_long.h"
 
-void	display_images(void *mlx, void *win, t_images img, t_map *map_data)
+void	display_images(void *mlx, void *win, t_images img, t_map *map)
 {
 	int		x;
 	int		y;
 	void	*image;
 
 	y = 0;
-	while (y < map_data->height)
+	while (y < map->height)
 	{
 		x = 0;
-		while (x < map_data->width)
+		while (x < map->width)
 		{
-			image = get_img(img, find_type(map_data->map[y][x]));
+			image = get_img(img, find_type(map->map[y][x]));
 			if (image)
 				mlx_put_image_to_window(mlx, win, image, x * SX, y * SY);
 			x++;
@@ -34,50 +33,62 @@ void	display_images(void *mlx, void *win, t_images img, t_map *map_data)
 	}
 }
 
-void	display_player(t_data *data, int *pos, t_images img, t_map *map_data)
+void	init_bounds(t_map *map, int *pos, int *bound)
 {
-	int	playerPosX = pos[0];
-	int	playerPosY = pos[1];
-	int	minX = playerPosX - (MAXW / 2);
-	int maxX = playerPosX + (MAXW / 2);
-	int	minY = playerPosY - (MAXH / 2);
-	int maxY = playerPosY + (MAXH / 2);
-	int i, j;
-	void	*image;
-
-	if (minY < 0)
+	bound[0] = pos[0] - (MAXW / 2);
+	bound[1] = pos[0] + (MAXW / 2);
+	bound[2] = pos[1] - (MAXH / 2);
+	bound[3] = pos[1] + (MAXH / 2);
+	if (bound[2] < 0)
 	{
-		maxY += -minY;
-		minY = 0;
+		bound[3] += -bound[2];
+		bound[2] = 0;
 	}
-	if (maxY > map_data->height)
+	if (bound[3] > map->height)
 	{
-		minY -= maxY - map_data->height;
-		maxY = map_data->height;
+		bound[2] -= bound[3] - map->height;
+		bound[3] = map->height;
 	}
-	if (minX < 1)
+	if (bound[0] < 1)
 	{
-		maxX += -minX;
-		minX = 0;
+		bound[1] += -bound[0];
+		bound[0] = 0;
 	}
-	if (maxX > map_data->width - 1)
+	if (bound[1] > map->width - 1)
 	{
-		minX -= maxX - map_data->width;
-		maxX = map_data->width;
-	}
-	j = 0;
-	for (int y = minY; y < maxY; y++, j++)
-	{
-		i = 0;
-		for (int x = minX; x < maxX; x++, i++)
-		{
-			image = get_img(img, find_type(map_data->map[y][x]));
-			if (image)
-				mlx_put_image_to_window(data->mlx, data->win, image, i * SX, j * SY);
-		}
+		bound[0] -= bound[1] - map->width;
+		bound[1] = map->width;
 	}
 }
 
+void	display_player(t_data *data, int *pos, t_images imgs, t_map *map)
+{
+	int		x;
+	int		y;
+	int		bound[4];
+	int		reset_x;
+	void	*img;
+
+	y = 0;
+	init_bounds(map, pos, bound);
+	reset_x = bound[0];
+	while (bound[2] < bound[3])
+	{
+		x = 0;
+		bound[0] = reset_x;
+		while (bound[0] < bound[1])
+		{
+			img = get_img(imgs, find_type(map->map[bound[2]][bound[0]]));
+			if (!img)
+				return ;
+			mlx_put_image_to_window(data->mlx, data->win, img, x * SX, y * SY);
+			bound[0]++;
+			x++;
+		}
+		bound[2]++;
+		y++;
+	}
+}
 
 void	update_images(t_data *data, t_case *aim, int x, int y)
 {

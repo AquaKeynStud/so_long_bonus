@@ -6,11 +6,10 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 12:37:17 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:33:38 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printers.h"
 #include "so_long.h"
 
 int	close_window(t_data *data, int exit_code)
@@ -29,15 +28,15 @@ int	close_window(t_data *data, int exit_code)
 	exit(exit_code);
 }
 
-static bool	window_create(t_data *data, t_map **map_data, t_images *images)
+static bool	window_create(t_data *data, t_map **map, t_images *images)
 {
 	int	width;
 	int	height;
 
 	data->moves = 0;
 	data->images = images;
-	width = (*map_data)->width;
-	height = (*map_data)->height;
+	width = (*map)->width;
+	height = (*map)->height;
 	data->winw = (width * (width <= MAXW) + MAXW * (width > MAXW)) * SY;
 	data->winh = (height * (height <= MAXH) + MAXH * (height > MAXH)) * SX;
 	data->mlx = mlx_init();
@@ -80,21 +79,22 @@ int	main(int argc, char **argv)
 	int			pos[2];
 	t_data		data;
 	t_images	images;
-	t_map		*map_data;
+	t_map		*map;
 
-	map_data = NULL;
+	map = NULL;
 	if (argc != 2 || !verif_ext(argv[1], ".ber"))
 		return (err_v("Error : Format has to be : %s <map>.ber", argv[0]));
-	if (!get_map(argv[1], &map_data, &data))
+	if (!get_map(argv[1], &map, &data))
 		return (1);
-	if (!window_create(&data, &map_data, &images))
+	if (!window_create(&data, &map, &images))
 		return (err("Error : Something went wrong during window creation"));
 	if (!init_images(data.mlx, &images))
 		return (close_window(&data, EXIT_FAILURE));
-	if (map_data->height > MAXW || map_data->width > MAXW)
-		display_player(&data, get_axis(pos, data.pos[1], data.pos[0]), images, map_data);
+	get_axis(pos, data.pos[1], data.pos[0]);
+	if (map->height > MAXW || map->width > MAXW)
+		display_player(&data, pos, images, map);
 	else
-		display_images(data.mlx, data.win, images, map_data);
+		display_images(data.mlx, data.win, images, map);
 	mlx_hook(data.win, 17, 0, end_loop, &data);
 	mlx_key_hook(data.win, handle_keypress, &data);
 	mlx_loop(data.mlx);

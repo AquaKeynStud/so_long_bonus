@@ -6,12 +6,11 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:55:15 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/09 14:22:43 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:38:02 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "printers.h"
 #include "parsing.h"
 
 static bool	isnt_wall_surrounded(t_map *map, int width, int height)
@@ -53,7 +52,7 @@ static bool	double_exit_error(t_case cell)
 int	err_map_parsing(t_map *map, t_data *data)
 {
 	if (map->width == 0 && map->height == 0)
-		return(err("The map file is empty"));
+		return (err("The map file is empty"));
 	if (map->width == map->height)
 		return (err("Error : The map must not be a square"));
 	if (isnt_wall_surrounded(map, map->width - 1, map->height - 1))
