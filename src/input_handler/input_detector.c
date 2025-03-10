@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:40:53 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 14:30:58 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 16:03:00 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,26 @@ static bool	update_target(int keycode, t_data *data)
 		return (false);
 	return (true);
 }
+
+int key_pressed(int keycode, t_data *data)
+{
+	if (!forbidden_input(keycode) && keycode != KEY_ESC)
+	{
+		data->keys[keycode] = true;
+		handle_keypress(keycode, data);
+	}
+	return (0);
+}
+
+int key_released(int keycode, t_data *data)
+{
+	if (!forbidden_input(keycode) && keycode != KEY_ESC)
+		data->keys[keycode] = true;
+	else
+		return (1);
+	return (0);
+}
+
 
 int	handle_keypress(int keycode, t_data *data)
 {

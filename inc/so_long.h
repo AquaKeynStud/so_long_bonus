@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 15:04:37 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 15:48:41 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_map
 
 typedef struct s_data
 {
+	bool		keys[256];
 	int			pyx[2];
 	int			collectible;
 	int			moves;
@@ -83,6 +84,8 @@ bool	free_map(t_map **map);
 bool	get_map(const char *file, t_map **map_data, t_data *data);
 
 /* -- Input functions -- */
+int 	key_pressed(int keycode, t_data *data);
+int 	key_released(int keycode, t_data *data);
 int		handle_keypress(int keycode, t_data *data);
 bool	move_player(t_data *data, t_map *map, t_case *aim);
 
