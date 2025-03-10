@@ -6,7 +6,7 @@ NAME = so_long
 
 CC				:=	cc
 
-CFLAGS			:= -g3 -Wall -Wextra -Werror
+CFLAGS			:= -Wall -Wextra -Werror
 
 RM				:=	rm	-rf
 
@@ -18,36 +18,37 @@ SHOW_MSG_CLEAN	=	true
 
 # directories
 D_SRC	=	src/
-D_PRI	=	$(D_SRC)printers/
-D_PAR	=	$(D_SRC)parsing/
-D_IMG	=	$(D_SRC)images_handler/
 D_INC	=	inc/
-D_LIB	=	librairies/
 D_OBJ	=	.obj/
+D_LIB	=	librairies/
+D_PAR	=	$(D_SRC)parsing/
+D_PRI	=	$(D_SRC)printers/
+D_IMG	=	$(D_SRC)display_handler/
 
 D_SRCS	= $(D_SRC) $(D_PRI) $(D_PAR) $(D_IMG)
 
 # file lists
-LST_SRC		=	main.c				\
-				map.c				\
-				input_handlers.c	\
-				utils.c				
+LST_SRC		=	map.c				\
+				main.c				\
+				utils.c				\
+				input_handlers.c	
 
 LST_PRI		=	err_printers.c		\
-				map_printers.c		
+				map_printers.c		\
+				print_on_window.c	
 
-LST_PAR		=	parsing.c			\
-				bfs.c		
+LST_PAR		=	bfs.c				\
+				parsing.c		
 
-LST_IMG		=	display_img.c		\
-				load_img.c
+LST_IMG		=	load_img.c			\
+				display_img.c		
 
-LST_INC		=	ft_printf.h			\
+LST_INC		=	mlx.h				\
 				mlx_int.h			\
-				mlx.h				\
 				parsing.h			\
-				printers.h			\
 				$(NAME).h			\
+				printers.h			\
+				ft_printf.h			
 
 LST_SRCS	=	$(LST_SRC) $(LST_PRI) $(LST_PAR) $(LST_IMG)
 
@@ -86,6 +87,6 @@ re :
 	@echo "\e[0;32mProgramme $(NAME) recréé avec succès ! 🫡\e[0m"
 
 norminette:
-	norminette $(D_SRCS)
+	norminette $(D_SRCS) $(D_INC)ft_printf.h $(D_INC)parsing.h $(D_INC)printers.h $(D_INC)$(NAME).h
 
 # valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes

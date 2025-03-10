@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:51:56 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/07 14:31:01 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/09 11:44:12 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	browse_map(t_map *map, bool (*function)(t_case cell))
 	return (counter);
 }
 
-int	get_asset_pos(t_map *map, char asset, char axis)
+int	get_pos(t_map *map, char axis)
 {
 	int	i;
 	int	j;
@@ -45,9 +45,9 @@ int	get_asset_pos(t_map *map, char asset, char axis)
 		j = 0;
 		while (j < map->width)
 		{
-			if (map->map[i][j].type == asset && axis == 'x')
+			if (map->map[i][j].type == 'P' && axis == 'x')
 				return (map->map[i][j].x);
-			else if (map->map[i][j].type == asset && axis == 'y')
+			else if (map->map[i][j].type == 'P' && axis == 'y')
 				return (map->map[i][j].y);
 			j++;
 		}
@@ -85,4 +85,11 @@ void	*get_img(t_images img, int type)
 	if (type == 4)
 		return (img.exit);
 	return (NULL);
+}
+
+int	*get_axis(int tab[2], int x, int y)
+{
+	tab[0] = x;
+	tab[1] = y;
+	return (tab);
 }

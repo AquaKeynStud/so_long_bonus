@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/07 14:30:43 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 12:33:34 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ typedef struct s_data
 {
 	int			pos[2];
 	int			collectible;
+	int			moves;
+	int			winw;
+	int			winh;
 	void		*mlx;
 	void		*win;
 	t_images	*images;
@@ -58,6 +61,20 @@ typedef struct s_data
 /* -- macros -- */
 # define SX 64
 # define SY 64
+# define MAXH 18
+# define MAXW 30
+
+# define KEY_ESC 65307
+# define KEY_W 122 // 119
+# define KEY_A 113 // 97
+# define KEY_S 115
+# define KEY_D 100
+
+# define BLACK 0x000000
+# define WHITE 0xFFFFFF
+
+/* -- Linked includes -- */
+# include "printers.h"
 
 /* -- Main functions -- */
 int		close_window(t_data *data, int exit_code);
@@ -73,12 +90,17 @@ int		handle_keypress(int keycode, t_data *data);
 bool	init_images(void *mlx, t_images *img);
 
 void	free_images(t_data *data, t_images *img);
+void	update_images(t_data *data, t_case *aim, int x, int y);
+void	print_on_win(t_data *data, int *axis, int color, char *txt);
 void	display_images(void *m, void *w, t_images img, t_map *map_data);
+void	display_player(t_data *data, int *pos, t_images img, t_map *map_data);
 
 /* -- Utils -- */
-int		get_asset_pos(t_map *map, char asset, char axis);
-int		browse_map(t_map *map, bool (*function)(t_case cell));
 int		find_type(t_case cell);
+int		get_pos(t_map *map, char axis);
+int		browse_map(t_map *map, bool (*function)(t_case cell));
+int		*get_axis(int tab[2], int x, int y);
+
 void	*get_img(t_images img, int type);
 
 #endif

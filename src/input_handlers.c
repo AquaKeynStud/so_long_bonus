@@ -6,48 +6,53 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:40:53 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/07 16:00:08 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 12:31:48 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "printers.h"
 
-bool	move_player(t_data *data, t_map *map, t_images images, t_case target)
+bool	move_player(t_data *data, t_map *map, t_case *aim)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	int		pos[2];
 
-	x = data->pos[1];
 	y = data->pos[0];
-	if (x < 0 || x > map->width || y < 0 || y > map->height)
-		return (err("The player is in a forbidden area !"));
-	if (target.type == '1')
+	x = data->pos[1];
+	if (aim->type == '1')
 		return (true);
-	else if (target.type == 'E' && data->collectible != 0)
-		return (err("You must have collected all the eggs before exiting !"), ft_printf("%i\n", data->collectible));
-	if (target.type == 'C')
+	else if (aim->type == 'E' && data->collectible != 0)
+		return (err("You must have collected all the eggs before exiting !"));
+	if (aim->type == 'C')
 		data->collectible--;
-	else if (target.type == 'E')
+	else if (aim->type == 'E')
 		return (mlx_loop_end(data->mlx));
 	map->map[y][x].type = '0';
-	target.type = 'P';
-	mlx_put_image_to_window(data->mlx, data->win, images.floor, x * SX, y * SY);
-	mlx_put_image_to_window(data->mlx, data->win, images.player, (x + 1) * SX, y * SY);
-	data->pos[0] = target.x;
-	data->pos[1] = target.y;
+	aim->type = 'P';
+	if (map->height > MAXW || map->width > MAXW)
+		display_player(data, get_axis(pos, aim->x, aim->y), *data->images, map);
+	else
+		update_images(data, aim, data->pos[1], data->pos[0]);
+	data->pos[0] = aim->y;
+	data->pos[1] = aim->x;
+	print_win(data, get_axis(pos, 0, data->winh - 5), "Moves :", ++data->moves);
 	return (true);
 }
 
-bool forbidden_input(int keycode)
+bool	forbidden_input(int keycode)
 {
-	int input[2];
+	int	input[5];
 	int	i;
 
 	i = 0;
-	input[0] = 65307;
-	input[1] = 100;
-	while (i < 2)
+	input[0] = KEY_ESC;
+	input[1] = KEY_W;
+	input[2] = KEY_A;
+	input[3] = KEY_S;
+	input[4] = KEY_D;
+	while (i < 5)
 	{
 		if (keycode == input[i++])
 			return (false);
@@ -55,21 +60,40 @@ bool forbidden_input(int keycode)
 	return (true);
 }
 
+static bool	update_target(int keycode, t_data *data)
+{
+	if (keycode == KEY_W && data->pos[0] - 1 < 0)
+		return (false);
+	if (keycode == KEY_A && data->pos[1] - 1 < 0)
+		return (false);
+	if (keycode == KEY_S && data->pos[0] + 1 > (*data->map)->height)
+		return (false);
+	if (keycode == KEY_D && data->pos[1] + 1 > (*data->map)->width)
+		return (false);
+	return (true);
+}
+
 int	handle_keypress(int keycode, t_data *data)
 {
-	t_map 		*map;
-	t_images	images;
-	t_case		target;
+	t_case		**map;
+	t_case		*aim;
 
-	map = *data->map;
-	images = *data->images;
+	map = (*data->map)->map;
 	if (forbidden_input(keycode))
 		return (ft_printf("Cette touche n'est pas attribuée\n"));
-	if (keycode == 65307)
+	if (keycode == KEY_ESC)
 		return (mlx_loop_end(data->mlx));
-	if (keycode == 100)
-		target = map->map[data->pos[1]][data->pos[0] + 1];
-	if (keycode == 100) // Ajouter les autres
-		move_player(data, map, images, target);
+	if (!update_target(keycode, data))
+		return (err("Vous ne pouvez pas aller par là !"));
+	if (keycode == KEY_W)
+		aim = &map[data->pos[0] - 1][data->pos[1]];
+	else if (keycode == KEY_A)
+		aim = &map[data->pos[0]][data->pos[1] - 1];
+	else if (keycode == KEY_S)
+		aim = &map[data->pos[0] + 1][data->pos[1]];
+	if (keycode == KEY_D)
+		aim = &map[data->pos[0]][data->pos[1] + 1];
+	if (keycode >= KEY_D && keycode <= KEY_W)
+		move_player(data, *data->map, aim);
 	return (0);
 }

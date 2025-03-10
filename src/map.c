@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/07 16:01:31 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/10 09:19:15 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,16 +134,11 @@ bool	get_map(const char *file, t_map **map_data, t_data *data)
 	(*map_data)->height = 0;
 	if (map_size_init_err(file, (*map_data)))
 		return (free_map(map_data));
-	if ((*map_data)->width > 30 || (*map_data)->height > 16)
-	{
-		err("Error : The map shouldn't exceed the screen size");
-		return (free_map(map_data));
-	}
 	init_map(*map_data);
 	fill_map(file, (*map_data), data);
-	data->pos[0] = get_asset_pos(*map_data, 'P', 'y');
-	data->pos[1] = get_asset_pos(*map_data, 'P', 'x');
+	get_axis(data->pos, get_pos(*map_data, 'y'), get_pos(*map_data, 'x'));
 	if (err_map_parsing(*map_data, data))
 		return (free_map(map_data));
+	data->map = map_data;
 	return (true);
 }
