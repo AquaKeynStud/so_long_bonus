@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:51:56 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 13:34:43 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/11 12:36:51 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	*get_img(t_images img, int type)
 	if (type == 1)
 		return (img.wall);
 	if (type == 2)
-		return (img.player);
+		return (img.player[img.direction]);
 	if (type == 3)
 		return (img.collec);
 	if (type == 4)

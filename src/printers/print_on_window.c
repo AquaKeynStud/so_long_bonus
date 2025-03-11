@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 10:26:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 15:48:09 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/11 14:17:04 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,19 @@ char	*ft_itoa(int n)
 	if (n < 0)
 		str[0] = '-';
 	return (str);
+}
+
+void	print_on_win(t_data *data, int *axis, int color, char *txt)
+{
+	mlx_string_put(data->mlx, data->win, axis[0] + 1, axis[1] + 1, BLACK, txt);
+	mlx_string_put(data->mlx, data->win, axis[0] + 1, axis[1] - 1, BLACK, txt);
+	mlx_string_put(data->mlx, data->win, axis[0] - 1, axis[1] + 1, BLACK, txt);
+	mlx_string_put(data->mlx, data->win, axis[0] - 1, axis[1] - 1, BLACK, txt);
+	mlx_string_put(data->mlx, data->win, axis[0], axis[1] - 1, BLACK, txt);
+	mlx_string_put(data->mlx, data->win, axis[0], axis[1] + 1, BLACK, txt);
+	mlx_string_put(data->mlx, data->win, axis[0] - 1, axis[1], BLACK, txt);
+	mlx_string_put(data->mlx, data->win, axis[0] + 1, axis[1], BLACK, txt);
+	mlx_string_put(data->mlx, data->win, axis[0], axis[1], color, txt);
 }
 
 void	print_win(t_data *data, int pos[2], char *text, int moves)

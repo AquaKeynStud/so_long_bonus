@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:15:19 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 14:16:53 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/11 14:21:39 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,14 @@ void	update_images(t_data *data, t_case *aim, int x, int y)
 	mlx_put_image_to_window(mlx, win, img2, aim->x * SX, aim->y * SY);
 }
 
-void	print_on_win(t_data *data, int *axis, int color, char *txt)
+void	init_display(t_data data, t_map *map, t_images images)
 {
-	mlx_string_put(data->mlx, data->win, axis[0] + 1, axis[1] + 1, BLACK, txt);
-	mlx_string_put(data->mlx, data->win, axis[0] + 1, axis[1] - 1, BLACK, txt);
-	mlx_string_put(data->mlx, data->win, axis[0] - 1, axis[1] + 1, BLACK, txt);
-	mlx_string_put(data->mlx, data->win, axis[0] - 1, axis[1] - 1, BLACK, txt);
-	mlx_string_put(data->mlx, data->win, axis[0], axis[1] - 1, BLACK, txt);
-	mlx_string_put(data->mlx, data->win, axis[0], axis[1] + 1, BLACK, txt);
-	mlx_string_put(data->mlx, data->win, axis[0] - 1, axis[1], BLACK, txt);
-	mlx_string_put(data->mlx, data->win, axis[0] + 1, axis[1], BLACK, txt);
-	mlx_string_put(data->mlx, data->win, axis[0], axis[1], color, txt);
+	int	pos[2];
+
+	get_axis(pos, data.pyx[1], data.pyx[0]);
+	images.direction = 0;
+	if (map->height > MAXH || map->width > MAXW)
+		display_player(&data, pos, images, map);
+	else
+		display_images(data.mlx, data.win, images, map);
 }

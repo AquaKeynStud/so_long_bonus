@@ -91,4 +91,5 @@ re :
 norminette:
 	norminette $(D_SRC) $(D_INC)ft_printf.h $(D_INC)parsing.h $(D_INC)$(NAME).h
 
-# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
+valgrind: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./so_long maps/500x100.ber

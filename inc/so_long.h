@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 15:48:41 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/11 14:20:28 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@
 /* -- Structures -- */
 typedef struct s_images
 {
+	int		direction;
 	void	*wall;
 	void	*floor;
 	void	*collec;
-	void	*player;
+	void	*player[4]; // ajouter une dimension pour les frames
 	void	*exit;
 }				t_images;
 
@@ -84,17 +85,18 @@ bool	free_map(t_map **map);
 bool	get_map(const char *file, t_map **map_data, t_data *data);
 
 /* -- Input functions -- */
-int 	key_pressed(int keycode, t_data *data);
-int 	key_released(int keycode, t_data *data);
+int		key_pressed(int keycode, t_data *data);
+int		key_released(int keycode, t_data *data);
 int		handle_keypress(int keycode, t_data *data);
 bool	move_player(t_data *data, t_map *map, t_case *aim);
 
 /* -- Images functions -- */
-bool	init_images(void *mlx, t_images *img);
+bool	init_images(t_data *data, t_images *img);
+bool	load_player(t_data *data, t_images *img);
 
 void	free_images(t_data *data, t_images *img);
 void	update_images(t_data *data, t_case *aim, int x, int y);
-void	print_on_win(t_data *data, int *axis, int color, char *txt);
+void	init_display(t_data data, t_map *map, t_images images);
 void	display_images(void *m, void *w, t_images img, t_map *map_data);
 void	display_player(t_data *data, int *pos, t_images img, t_map *map_data);
 
@@ -105,6 +107,7 @@ int		err_v(char *message, char *value);
 
 void	print_map(t_map *map);
 void	print_win(t_data *data, int pos[2], char *text, int moves);
+void	print_on_win(t_data *data, int *axis, int color, char *txt);
 
 /* -- Utils -- */
 char	*ft_itoa(int n);

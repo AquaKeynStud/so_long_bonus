@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 15:59:15 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/11 14:20:11 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static bool	verif_ext(char *file, char *ext)
 
 int	main(int argc, char **argv)
 {
-	int			pos[2];
 	t_data		data;
 	t_images	images;
 	t_map		*map;
@@ -88,16 +87,12 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!window_create(&data, &map, &images))
 		return (err("Error : Something went wrong during window creation"));
-	if (!init_images(data.mlx, &images))
+	if (!init_images(&data, &images))
 		return (close_window(&data, EXIT_FAILURE));
-	get_axis(pos, data.pyx[1], data.pyx[0]);
-	if (map->height > MAXH || map->width > MAXW)
-		display_player(&data, pos, images, map);
-	else
-		display_images(data.mlx, data.win, images, map);
+	init_display(data, map, images);
 	mlx_hook(data.win, 17, 0, end_loop, &data);
 	mlx_hook(data.win, 2, 1L << 0, key_pressed, &data);
-    mlx_hook(data.win, 3, 1L << 1, key_released, &data);
+	mlx_hook(data.win, 3, 1L << 1, key_released, &data);
 	mlx_loop(data.mlx);
 	free_images(&data, &images);
 	close_window(&data, EXIT_SUCCESS);
