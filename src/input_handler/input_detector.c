@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:40:53 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/11 14:14:03 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/11 22:21:44 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,22 @@ static int	check_input(int keycode)
 	return (-1);
 }
 
-static void	update_direction(int keycode, t_data *data)
+static void	update_direction(int keycode, t_data *data, char type)
 {
-	t_images	*img;
+	int			x;
+	int			y;
+	void		*img;
+	t_images	*image;
 
-	img = data->images;
+	x = data->pyx[0];
+	y = data->pyx[1];
+	image = data->images;
+	ft_printf("Direction : %i\n", check_input(keycode) - 1);
 	if (check_input(keycode) > 0)
-		img->direction = check_input(keycode) - 1;
+		image->direction = check_input(keycode) - 1;
+	img = get_img(*image, find_type((*data->map)->map[y][x]));
+	if (type == '1' || (type == 'E' && data->collectible))
+		mlx_put_image_to_window(data->mlx, data->win, img, x * SX, y * SY);	
 }
 
 int	key_pressed(int keycode, t_data *data)
@@ -82,7 +91,7 @@ int	handle_keypress(int keycode, t_data *data)
 		aim = &map[data->pyx[0] + 1][data->pyx[1]];
 	if (keycode == KEY_D)
 		aim = &map[data->pyx[0]][data->pyx[1] + 1];
-	update_direction(keycode, data);
+	update_direction(keycode, data, aim->type);
 	if (keycode >= KEY_D && keycode <= KEY_W)
 		move_player(data, *data->map, aim);
 	return (0);

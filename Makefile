@@ -6,7 +6,7 @@ NAME = so_long
 
 CC				:=	cc
 
-CFLAGS			:= -g3 -Wall -Wextra -Werror
+CFLAGS			:= -Wall -Wextra -Werror
 
 RM				:=	rm	-rf
 

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/11 14:20:28 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/11 21:28:00 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ typedef struct s_images
 	void	*wall;
 	void	*floor;
 	void	*collec;
-	void	*player[4]; // ajouter une dimension pour les frames
+	void	*player[4];
 	void	*exit;
+	void	*slime;
 }				t_images;
 
 typedef struct s_case

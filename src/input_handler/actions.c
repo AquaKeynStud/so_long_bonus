@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:30:30 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/10 15:17:06 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/11 22:07:01 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	move_player(t_data *data, t_map *map, t_case *aim)
 		return (err("You must have collected all the eggs before exiting !"));
 	if (aim->type == 'C')
 		data->collectible--;
-	else if (aim->type == 'E')
+	else if (aim->type == 'E' || aim->type == 'M')
 		return (mlx_loop_end(data->mlx));
 	map->map[y][x].type = '0';
 	aim->type = 'P';
