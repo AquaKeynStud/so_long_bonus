@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:40:53 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 01:21:57 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 10:58:20 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,11 @@ static int	check_input(int keycode)
 
 static void	update_direction(int keycode, t_data *data)
 {
-	// int			x;
-	// int			y;
-	// void		*img;
 	t_images	*image;
 
-	// x = data->pyx[0];
-	// y = data->pyx[1];
 	image = data->images;
 	if (check_input(keycode) > 0)
 		image->direction = check_input(keycode) - 1;
-	// img = get_img(*image, find_type((*data->map)->map[y][x]));
-	// if (type == '1' || (type == 'E' && data->collectible))
-	// 	mlx_put_image_to_window(data->mlx, data->win, img, x * SX, y * SY);	
 }
 
 int	key_pressed(int keycode, t_data *data)
