@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:52:54 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 16:21:58 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 23:55:32 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ bool	running_under_valgrind(void)
 	{
 		buffer[bytes_read] = '\0';
 		if (ft_strstr(buffer, "valgrind"))
+		{
+			print_info("Program launched under valgrind", NULL);
 			return (true);
+		}
 	}
 	return (false);
 }

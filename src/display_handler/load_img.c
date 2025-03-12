@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:43:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 16:18:34 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 23:53:13 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool	init_images(t_data *data, t_images *img)
 	paths[1] = "./assets/floor.xpm";
 	paths[2] = "./assets/collectible.xpm";
 	paths[3] = "./assets/exit.xpm";
-	paths[4] = "./assets/slime.xpm";
+	paths[4] = "./assets/slime1.xpm";
 	if (!load_images(data->mlx, imgs, paths, 5))
 		return (false);
 	img->wall = imgs[0];

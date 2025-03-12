@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 16:15:59 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 23:55:58 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool	window_create(t_data *data, t_map **map, t_images *images)
 	height = (*map)->height;
 	data->winw = (width * (width <= MAXW) + MAXW * (width > MAXW)) * SY;
 	data->winh = (height * (height <= MAXH) + MAXH * (height > MAXH)) * SX;
-	data->max_frames = 50000;
+	data->max_frames = 40000;
 	if (running_under_valgrind())
 		data->max_frames = 6500;
 	data->mlx = mlx_init();
