@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:30:30 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 15:17:44 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:46:30 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	update_display(t_data *data, t_map *map, t_case *aim)
 	int		winw;
 	int		winh;
 	int		padding;
+	char	*moves;
 
 	winw = data->winw;
 	winh = data->winh;
@@ -30,6 +31,9 @@ void	update_display(t_data *data, t_map *map, t_case *aim)
 	print_win(data, get_axis(pos, winw / 2 - padding, 20), "Player x:", aim->x);
 	print_win(data, get_axis(pos, winw / 2 + padding, 20), "y:", aim->y);
 	print_win(data, get_axis(pos, 10, 20), "Collectibles :", map->collectible);
+	moves = ft_itoa(data->moves);
+	print_info("⋆｡⋆✧ 𝗠𝗼𝘃𝗲𝘀 ✧⋆｡⋆ ➤ %s", moves);
+	free(moves);
 }
 
 bool	move_player(t_data *data, t_map *map, t_case *aim)

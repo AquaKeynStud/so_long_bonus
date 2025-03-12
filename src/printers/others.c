@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   others.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 16:10:11 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 16:23:05 by arocca           ###   ########.fr       */
+/*   Created: 2025/03/12 16:32:03 by arocca            #+#    #+#             */
+/*   Updated: 2025/03/12 16:47:47 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "so_long.h"
 
-/* -- Includes -- */
-# include <stdlib.h>
-# include <stdbool.h>
-
-/* -- Structures -- */
-typedef struct s_queue
+int	print_info(char *message, char *value)
 {
-	t_case	**q;
-	int		front;
-	int		rear;
-	int		size;
-}				t_queue;
-
-/* -- Functions -- */
-bool	get_slimes(t_map *map);
-bool	is_item_unreachable(t_case cell);
-int		err_map_parsing(t_map *map, t_data *data);
-void	bfs(t_map *map, int start_x, int start_y);
-
-#endif
+	ft_printf("\033[34m\033[1m\033[47m     ");
+	ft_printf(message, value);
+	ft_printf("     \033[0m\n");
+	return (ft_strlen(message));
+}

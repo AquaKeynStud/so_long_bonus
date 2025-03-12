@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 16:08:13 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:45:46 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void	display_player(t_data *data, int *pos, t_images img, t_map *map_data);
 int		err(char *message);
 int		err_errno(int errnum);
 int		err_v(char *message, char *value);
+
+int		print_info(char *message, char *value);
 
 void	print_map(t_map *map);
 void	print_win(t_data *data, int pos[2], char *text, int moves);

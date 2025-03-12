@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:52:54 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 16:06:18 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:21:58 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 static char	*ft_strstr(const char *big, const char *little)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	if (*little == '\0')
 		return ((char *)big);
@@ -37,13 +37,13 @@ static char	*ft_strstr(const char *big, const char *little)
 
 bool	running_under_valgrind(void)
 {
-	int fd;
-	char buffer[4096];
-	ssize_t bytes_read;
+	int		fd;
+	char	buffer[4096];
+	ssize_t	bytes_read;
 
 	fd = open("/proc/self/maps", O_RDONLY);
 	if (fd < 0)
-		return 0;
+		return (false);
 	bytes_read = read(fd, buffer, sizeof(buffer) - 1);
 	close(fd);
 	if (bytes_read > 0)

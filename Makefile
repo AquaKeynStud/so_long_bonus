@@ -21,23 +21,22 @@ D_SRC	=	src/
 D_INC	=	inc/
 D_OBJ	=	.obj/
 D_LIB	=	librairies/
-D_MON	=	$(D_SRC)monsters_handler/
 D_PAR	=	$(D_SRC)parsing/
 D_PRI	=	$(D_SRC)printers/
 D_KEY	=	$(D_SRC)input_handler/
 D_IMG	=	$(D_SRC)display_handler/
 
-D_SRCS	= $(D_SRC) $(D_MON) $(D_PRI) $(D_PAR) $(D_IMG) $(D_KEY)
+D_SRCS	= $(D_SRC) $(D_PRI) $(D_PAR) $(D_IMG) $(D_KEY)
 
 # file lists
 LST_SRC		=	map.c				\
 				main.c				\
 				utils.c				\
-				optis.c
+				optis.c				\
+				monsters_handler.c	
 
-LST_MON		=	monsters_handler.c	\
-
-LST_PRI		=	err_printers.c		\
+LST_PRI		=	others.c			\
+				err_printers.c		\
 				map_printers.c		\
 				print_on_window.c	
 
@@ -56,7 +55,7 @@ LST_INC		=	mlx.h				\
 				$(NAME).h			\
 				ft_printf.h			
 
-LST_SRCS	=	$(LST_SRC) $(LST_MON) $(LST_PRI) $(LST_PAR) $(LST_IMG) $(LST_KEY)
+LST_SRCS	=	$(LST_SRC) $(LST_PRI) $(LST_PAR) $(LST_IMG) $(LST_KEY)
 
 INC	=	$(addprefix $(D_INC), $(LST_INC))
 

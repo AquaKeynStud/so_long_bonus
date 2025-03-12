@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:15:19 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 16:15:16 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:47:22 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,23 @@ void	update_images(t_data *data, t_case *aim, int x, int y)
 
 void	init_display(t_data data, t_map *map, t_images images)
 {
+	int	winw;
+	int	winh;
 	int	pos[2];
+	int	*pyx;
+	int	pad;
 
+	pyx = data.pyx;
+	winw = data.winw;
+	winh = data.winh;
+	pad = ((ft_strlen("Player x:") + 6) * CHARW) / 2;
 	get_axis(pos, data.pyx[1], data.pyx[0]);
 	if (map->height > MAXH || map->width > MAXW)
 		display_player(&data, pos, images, map);
 	else
 		display_images(data.mlx, data.win, images, map);
+	print_win(&data, get_axis(pos, 10, winh - 5), "Moves :", data.moves);
+	print_win(&data, get_axis(pos, winw / 2 - pad, 20), "Player x:", pyx[1]);
+	print_win(&data, get_axis(pos, winw / 2 + pad, 20), "y:", pyx[0]);
+	print_win(&data, get_axis(pos, 10, 20), "Collectibles :", map->collectible);
 }
