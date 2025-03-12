@@ -6,13 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:30:30 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/11 22:07:01 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 15:17:44 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	update_display(t_data *data, t_map *map, t_case *aim)
+void	update_display(t_data *data, t_map *map, t_case *aim)
 {
 	int		pos[2];
 	int		winw;
@@ -29,7 +29,7 @@ static void	update_display(t_data *data, t_map *map, t_case *aim)
 	print_win(data, get_axis(pos, 10, winh - 5), "Moves :", ++data->moves);
 	print_win(data, get_axis(pos, winw / 2 - padding, 20), "Player x:", aim->x);
 	print_win(data, get_axis(pos, winw / 2 + padding, 20), "y:", aim->y);
-	print_win(data, get_axis(pos, 10, 20), "Collectibles :", data->collectible);
+	print_win(data, get_axis(pos, 10, 20), "Collectibles :", map->collectible);
 }
 
 bool	move_player(t_data *data, t_map *map, t_case *aim)
@@ -41,10 +41,10 @@ bool	move_player(t_data *data, t_map *map, t_case *aim)
 	x = data->pyx[1];
 	if (aim->type == '1')
 		return (true);
-	else if (aim->type == 'E' && data->collectible != 0)
+	else if (aim->type == 'E' && map->collectible != 0)
 		return (err("You must have collected all the eggs before exiting !"));
 	if (aim->type == 'C')
-		data->collectible--;
+		map->collectible--;
 	else if (aim->type == 'E' || aim->type == 'M')
 		return (mlx_loop_end(data->mlx));
 	map->map[y][x].type = '0';

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 01:20:42 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 13:20:38 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,27 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
+
+bool	free_map(t_map **map)
+{
+	t_case	**tmp;
+
+	if (!map || !(*map))
+		return (false);
+	if ((*map)->map)
+	{
+		tmp = (*map)->map;
+		while (*tmp)
+			free(*tmp++);
+		free((*map)->map);
+		(*map)->map = NULL;
+	}
+	free((*map)->slime);
+	(*map)->slime = NULL;
+	free(*map);
+	*map = NULL;
+	return (false);
+}
 
 static int	map_size_init_err(const char *file, int *width, int *height)
 {
@@ -43,28 +64,6 @@ static int	map_size_init_err(const char *file, int *width, int *height)
 		(*height)++;
 	close(fd);
 	return (0);
-}
-
-bool	free_map(t_map **map)
-{
-	int	i;
-
-	if (!(*map))
-		return (false);
-	i = 0;
-	if ((*map)->map)
-	{
-		while ((*map)->map[i] != NULL)
-		{
-			free((*map)->map[i]);
-			i++;
-		}
-		free((*map)->map);
-		(*map)->map = NULL;
-	}
-	free(*map);
-	(*map) = NULL;
-	return (false);
 }
 
 static bool	init_map(t_map *map)
@@ -96,7 +95,7 @@ static bool	init_map(t_map *map)
 	return (true);
 }
 
-static void	fill_map(const char *file, t_map *map, t_data *data)
+static void	fill_map(const char *file, t_map *map)
 {
 	char	c;
 	int		i;
@@ -104,7 +103,7 @@ static void	fill_map(const char *file, t_map *map, t_data *data)
 	int		fd;
 
 	i = 0;
-	data->collectible = 0;
+	map->collectible = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return ;
@@ -116,7 +115,7 @@ static void	fill_map(const char *file, t_map *map, t_data *data)
 			read(fd, &c, 1);
 			map->map[i][j].type = c;
 			if (c == 'C')
-				data->collectible++;
+				map->collectible++;
 			j++;
 		}
 		read(fd, &c, 1);
@@ -140,9 +139,9 @@ bool	get_map(const char *file, t_map **map, t_data *data)
 		return (free_map(map));
 	}
 	init_map(*map);
-	fill_map(file, (*map), data);
+	fill_map(file, (*map));
 	get_axis(data->pyx, get_pos(*map, 'y'), get_pos(*map, 'x'));
-	if (err_map_parsing(*map, data))
+	if (err_map_parsing(*map, data) || !get_slimes(*map))
 		return (free_map(map));
 	data->map = map;
 	return (true);

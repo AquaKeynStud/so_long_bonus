@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/11 21:28:00 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:08:13 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,21 @@ typedef struct s_map
 {
 	int		width;
 	int		height;
+	int		slimes;
+	int		collectible;
 	t_case	**map;
+	t_case	**slime;
 }				t_map;
 
 typedef struct s_data
 {
 	bool		keys[256];
 	int			pyx[2];
-	int			collectible;
 	int			moves;
 	int			winw;
 	int			winh;
+	int			frame_count;
+	int			max_frames;
 	void		*mlx;
 	void		*win;
 	t_images	*images;
@@ -79,11 +83,15 @@ typedef struct s_data
 # define WHITE 0xFFFFFF
 
 /* -- Main functions -- */
+int		end_loop(t_data *data);
 int		close_window(t_data *data, int exit_code);
 
 /* -- Map functions -- */
 bool	free_map(t_map **map);
 bool	get_map(const char *file, t_map **map_data, t_data *data);
+
+/* -- Monsters functions -- */
+int		move_enemies(t_data *data);
 
 /* -- Input functions -- */
 int		key_pressed(int keycode, t_data *data);
@@ -96,6 +104,7 @@ bool	init_images(t_data *data, t_images *img);
 bool	load_player(t_data *data, t_images *img);
 
 void	free_images(t_data *data, t_images *img);
+void	update_display(t_data *data, t_map *map, t_case *aim);
 void	update_images(t_data *data, t_case *aim, int x, int y);
 void	init_display(t_data data, t_map *map, t_images images);
 void	display_images(void *m, void *w, t_images img, t_map *map_data);
@@ -119,5 +128,8 @@ int		browse_map(t_map *map, bool (*function)(t_case cell));
 int		*get_axis(int tab[2], int x, int y);
 
 void	*get_img(t_images img, int type);
+
+/* -- Optimisations -- */
+bool	running_under_valgrind(void);
 
 #endif

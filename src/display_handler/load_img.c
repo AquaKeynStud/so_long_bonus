@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:43:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/11 21:23:42 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:18:34 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ bool	init_images(t_data *data, t_images *img)
 	void	*imgs[5];
 	char	*paths[5];
 
+	img->direction = 0;
 	paths[0] = "./assets/wall.xpm";
 	paths[1] = "./assets/floor.xpm";
 	paths[2] = "./assets/collectible.xpm";

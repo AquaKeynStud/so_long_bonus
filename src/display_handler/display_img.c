@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:15:19 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/11 21:25:17 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:15:16 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void	init_display(t_data data, t_map *map, t_images images)
 	int	pos[2];
 
 	get_axis(pos, data.pyx[1], data.pyx[0]);
-	images.direction = 0;
 	if (map->height > MAXH || map->width > MAXW)
 		display_player(&data, pos, images, map);
 	else

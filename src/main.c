@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/11 22:04:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:15:59 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,15 @@ static bool	window_create(t_data *data, t_map **map, t_images *images)
 	int	height;
 
 	data->moves = 0;
+	data->frame_count = 0;
 	data->images = images;
 	width = (*map)->width;
 	height = (*map)->height;
 	data->winw = (width * (width <= MAXW) + MAXW * (width > MAXW)) * SY;
 	data->winh = (height * (height <= MAXH) + MAXH * (height > MAXH)) * SX;
+	data->max_frames = 50000;
+	if (running_under_valgrind())
+		data->max_frames = 6500;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (false);
@@ -51,7 +55,7 @@ static bool	window_create(t_data *data, t_map **map, t_images *images)
 	return (true);
 }
 
-static int	end_loop(t_data *data)
+int	end_loop(t_data *data)
 {
 	mlx_loop_end(data->mlx);
 	return (0);
@@ -93,6 +97,7 @@ int	main(int argc, char **argv)
 	mlx_hook(data.win, 17, 0, end_loop, &data);
 	mlx_hook(data.win, 2, 1L << 0, key_pressed, &data);
 	mlx_hook(data.win, 3, 1L << 1, key_released, &data);
+	mlx_loop_hook(data.mlx, move_enemies, &data);
 	mlx_loop(data.mlx);
 	free_images(&data, &images);
 	close_window(&data, EXIT_SUCCESS);

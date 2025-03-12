@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:55:15 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/11 20:33:00 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/12 13:23:07 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	err_map_parsing(t_map *map, t_data *data)
 		return (err("The map contains less or more than 1 player"));
 	if (browse_map(map, double_exit_error) != 1)
 		return (err("The map contains less or more than 1 exit"));
-	if (data->collectible == 0)
+	if (map->collectible == 0)
 		return (err("The map must contain at least one collectible"));
 	bfs(map, data->pyx[1], data->pyx[0]);
 	if (browse_map(map, is_item_unreachable))
