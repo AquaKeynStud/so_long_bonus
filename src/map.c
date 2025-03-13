@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 13:20:38 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/13 15:04:14 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static bool	init_map(t_map *map)
 		{
 			map->map[i][j].x = j;
 			map->map[i][j].y = i;
-			map->map[i][j].type = '\0';
+			map->map[i][j].floor_type = rand() % 4;
 			map->map[i][j].verified = false;
 			j++;
 		}

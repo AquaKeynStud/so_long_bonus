@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:51:56 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/11 21:20:07 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/13 15:02:31 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	get_pos(t_map *map, char axis)
 	return (0);
 }
 
-int	find_type(t_case cell)
+int	type_of(t_case cell)
 {
 	char	*types;
 	int		i;
@@ -72,10 +72,15 @@ int	find_type(t_case cell)
 	return (-1);
 }
 
-void	*get_img(t_images img, int type)
+void	*get_img(t_data *data, t_images img, int y, int x)
 {
+	int		type;
+	t_map	*map;
+
+	map = (*data->map);
+	type = type_of(map->map[y][x]);
 	if (type == 0)
-		return (img.floor);
+		return (img.floor[map->map[y][x].floor_type]);
 	if (type == 1)
 		return (img.wall);
 	if (type == 2)
