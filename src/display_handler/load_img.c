@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:43:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 23:53:13 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/13 00:15:15 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,14 @@ static bool	load_images(void *mlx, void **imgs, char **paths, int max)
 
 bool	load_player(t_data *data, t_images *img)
 {
-	void	*imgs[4];
 	char	*paths[4];
 
 	paths[0] = "./assets/p_down.xpm";
 	paths[1] = "./assets/p_right.xpm";
 	paths[2] = "./assets/p_left.xpm";
 	paths[3] = "./assets/p_up.xpm";
-	if (!load_images(data->mlx, imgs, paths, 4))
+	if (!load_images(data->mlx, img->player, paths, 4))
 		return (false);
-	img->player[0] = imgs[0];
-	img->player[1] = imgs[1];
-	img->player[2] = imgs[2];
-	img->player[3] = imgs[3];
 	return (true);
 }
 
