@@ -33,7 +33,8 @@ LST_SRC		=	map.c				\
 				main.c				\
 				utils.c				\
 				optis.c				\
-				monsters_handler.c	
+				monsters_handler.c	\
+				animation.c			
 
 LST_PRI		=	others.c			\
 				err_printers.c		\

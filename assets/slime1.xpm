@@ -13,7 +13,7 @@ static const char *slime1[] = {
 "$  c #0F0B10",
 "%  c #5F2D79",
 "&  c #622E7D",
-"*  c #757575",
+"*  c gray46",
 "=  c #3D8C34",
 "-  c #3D9336",
 ";  c #32923D",

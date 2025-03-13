@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:43:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/13 14:51:06 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/14 00:41:38 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	free_images(t_data *data, t_images *img)
 	mlx_destroy_image(data->mlx, img->wall);
 	mlx_destroy_image(data->mlx, img->collec);
 	mlx_destroy_image(data->mlx, img->exit);
-	mlx_destroy_image(data->mlx, img->slime);
 	while (i < 4)
 	{
 		mlx_destroy_image(data->mlx, img->player[i]);
 		mlx_destroy_image(data->mlx, img->floor[i]);
+		mlx_destroy_image(data->mlx, img->slime[i]);
 		i++;
 	}
 	data->images = NULL;
@@ -54,7 +54,7 @@ static bool	load_images(void *mlx, void **imgs, char **paths, int max)
 	return (true);
 }
 
-bool	load_player(t_data *data, t_images *img)
+bool	load_tabs(t_data *data, t_images *img)
 {
 	char	*paths[4];
 
@@ -64,39 +64,41 @@ bool	load_player(t_data *data, t_images *img)
 	paths[3] = "./assets/p_up.xpm";
 	if (!load_images(data->mlx, img->player, paths, 4))
 		return (false);
-	return (true);
-}
-
-bool	load_floors(t_data *data, t_images *img)
-{
-	char	*paths[4];
-
 	paths[0] = "./assets/floor1.xpm";
 	paths[1] = "./assets/floor2.xpm";
 	paths[2] = "./assets/floor3.xpm";
 	paths[3] = "./assets/floor4.xpm";
 	if (!load_images(data->mlx, img->floor, paths, 4))
 		return (false);
+	paths[0] = "./assets/slime1.xpm";
+	paths[1] = "./assets/slime2.xpm";
+	paths[2] = "./assets/slime3.xpm";
+	paths[3] = "./assets/slime4.xpm";
+	if (!load_images(data->mlx, img->slime, paths, 4))
+		return (false);
 	return (true);
 }
 
 bool	init_images(t_data *data, t_images *img)
 {
-	void	*imgs[4];
-	char	*paths[4];
+	void	*imgs[3];
+	char	*paths[3];
 
 	img->direction = 0;
+	img->frame = 0;
+	img->anim_frame = 0;
+	img->anim_speed = 12500;
+	if (running_under_valgrind())
+		img->anim_speed = 1500;
 	paths[0] = "./assets/wall.xpm";
 	paths[1] = "./assets/collectible.xpm";
 	paths[2] = "./assets/exit.xpm";
-	paths[3] = "./assets/slime1.xpm";
-	if (!load_images(data->mlx, imgs, paths, 4))
+	if (!load_images(data->mlx, imgs, paths, 3))
 		return (false);
 	img->wall = imgs[0];
 	img->collec = imgs[1];
 	img->exit = imgs[2];
-	img->slime = imgs[3];
-	if (!load_player(data, img) || !load_floors(data, img))
+	if (!load_tabs(data, img))
 		return (false);
 	return (true);
 }

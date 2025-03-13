@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/13 15:03:27 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/14 00:39:42 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@
 /* -- Structures -- */
 typedef struct s_images
 {
+	int		frame;
 	int		direction;
+	int		anim_frame;
+	int		anim_speed;
 	void	*wall;
 	void	*floor[4];
 	void	*collec;
 	void	*player[4];
 	void	*exit;
-	void	*slime;
+	void	*slime[4];
 }				t_images;
 
 typedef struct s_case
@@ -58,8 +61,8 @@ typedef struct s_data
 	int			moves;
 	int			winw;
 	int			winh;
-	int			frame_count;
-	int			max_frames;
+	int			gen;
+	int			max_gen;
 	void		*mlx;
 	void		*win;
 	t_images	*images;
@@ -90,6 +93,9 @@ int		close_window(t_data *data, int exit_code);
 /* -- Map functions -- */
 bool	free_map(t_map **map);
 bool	get_map(const char *file, t_map **map_data, t_data *data);
+
+void	animate(t_data *data);
+int		game_loop(t_data *data);
 
 /* -- Monsters functions -- */
 int		move_enemies(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:32:11 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 16:23:45 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/13 19:41:02 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ int	move_enemies(t_data *data)
 
 	i = 0;
 	map = *data->map;
-	if (++data->frame_count < data->max_frames || !(*data->map)->slimes)
+	if (++data->gen < data->max_gen || !(*data->map)->slimes)
 		return (1);
-	data->frame_count = 0;
+	data->gen = 0;
 	while (i < map->slimes)
 	{
 		if (update_aim(data, &aim, map->slime[i]->x, map->slime[i]->y))

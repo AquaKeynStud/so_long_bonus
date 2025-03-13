@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:51:56 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/13 15:02:31 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/13 19:43:34 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	*get_img(t_data *data, t_images img, int y, int x)
 	if (type == 4)
 		return (img.exit);
 	if (type == 5)
-		return (img.slime);
+		return (img.slime[img.frame]);
 	return (NULL);
 }
 

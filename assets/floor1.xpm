@@ -1,5 +1,5 @@
 /* XPM */
-static const char *floor[] = {
+static const char *floor1[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 192 2 ",
 "   c gray46",
