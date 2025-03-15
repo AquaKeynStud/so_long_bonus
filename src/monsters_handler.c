@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:32:11 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/13 19:41:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/15 11:24:51 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ int	move_enemies(t_data *data)
 		if (update_aim(data, &aim, map->slime[i]->x, map->slime[i]->y))
 		{
 			if (aim->type == 'P')
+			{
+				data->game_status = DEFEAT;
 				return (end_loop(data));
+			}
 			map->slime[i]->type = '0';
 			aim->type = 'M';
 			map->slime[i] = aim;

@@ -1,8 +1,8 @@
 /* XPM */
-static const char *exit[] = {
+static const char *exit1[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 234 2 ",
-"   c black",
+"   c #000000",
 ".  c #090C05",
 "X  c #10180A",
 "o  c #2E1715",

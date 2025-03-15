@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/13 15:04:14 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/15 16:41:17 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static bool	init_map(t_map *map)
 		{
 			map->map[i][j].x = j;
 			map->map[i][j].y = i;
-			map->map[i][j].floor_type = rand() % 4;
+			map->map[i][j].rand_asset = rand() % 4;
 			map->map[i][j].verified = false;
 			j++;
 		}
@@ -103,7 +103,7 @@ static void	fill_map(const char *file, t_map *map)
 	int		fd;
 
 	i = 0;
-	map->collectible = 0;
+	map->items = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return ;
@@ -115,7 +115,7 @@ static void	fill_map(const char *file, t_map *map)
 			read(fd, &c, 1);
 			map->map[i][j].type = c;
 			if (c == 'C')
-				map->collectible++;
+				map->items++;
 			j++;
 		}
 		read(fd, &c, 1);
@@ -138,11 +138,13 @@ bool	get_map(const char *file, t_map **map, t_data *data)
 		err("Error : Map height is too big");
 		return (free_map(map));
 	}
+	print_info_str("🌅 Starting creation of map : %s", (char *)file);
 	init_map(*map);
 	fill_map(file, (*map));
 	get_axis(data->pyx, get_pos(*map, 'y'), get_pos(*map, 'x'));
-	if (err_map_parsing(*map, data) || !get_slimes(*map))
+	if (err_map_parsing(*map, data, file) || !get_slimes(*map))
 		return (free_map(map));
 	data->map = map;
+	print_info_int("🏔️ Map height & width : %ix%i 🏞️ ", (*map)->width, (*map)->height);
 	return (true);
 }

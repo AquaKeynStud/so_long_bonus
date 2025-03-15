@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:40:53 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 10:58:20 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/15 11:42:57 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	handle_keypress(int keycode, t_data *data)
 
 	map = (*data->map)->map;
 	if (check_input(keycode) < 0)
-		return (ft_printf("Cette touche n'est pas attribuée\n"));
+		return (ft_printf("🫧 Cette touche n'est pas attribuée 🫧\n"));
 	if (keycode == KEY_ESC)
 		return (mlx_loop_end(data->mlx));
 	if (keycode == KEY_W)

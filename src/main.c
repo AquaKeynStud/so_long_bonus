@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/13 23:35:47 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/15 14:19:46 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@ int	close_window(t_data *data, int exit_code)
 	}
 	if (data->map)
 		free_map(data->map);
-	if (exit_code == EXIT_SUCCESS)
-		ft_printf("\033[32m\033[47m     • So_Long ended •     \033[0m\n");
+	if (exit_code == EXIT_SUCCESS && data->game_status == VICTORY)
+		print_green("🎋 • Congratulation, you won ! • 🏆");
+	else if (exit_code == EXIT_SUCCESS && data->game_status == DEFEAT)
+		err("🪦 • Player died... D: • ⚰️");
+	else if (exit_code == EXIT_SUCCESS && data->game_status == RUNNING)
+		err("♨️ • So_long program canceled • 🛟");
 	exit(exit_code);
 }
 
@@ -38,6 +42,7 @@ static bool	window_create(t_data *data, t_map **map, t_images *images)
 	data->images = images;
 	width = (*map)->width;
 	height = (*map)->height;
+	data->game_status = RUNNING;
 	data->winw = (width * (width <= MAXW) + MAXW * (width > MAXW)) * SY;
 	data->winh = (height * (height <= MAXH) + MAXH * (height > MAXH)) * SX;
 	data->max_gen = 55000;
@@ -52,6 +57,7 @@ static bool	window_create(t_data *data, t_map **map, t_images *images)
 		free(data->mlx);
 		return (false);
 	}
+	print_info_int("🖥️ Window size : %ix%i 🪟", data->winw, data->winh);
 	return (true);
 }
 
@@ -85,6 +91,7 @@ int	main(int argc, char **argv)
 	t_map		*map;
 
 	map = NULL;
+	print_title();
 	if (argc != 2 || !verif_ext(argv[1], ".ber"))
 		return (err_v("Error : Format has to be : %s <map>.ber", argv[0]));
 	if (!get_map(argv[1], &map, &data))
@@ -101,5 +108,4 @@ int	main(int argc, char **argv)
 	mlx_loop(data.mlx);
 	free_images(&data, &images);
 	close_window(&data, EXIT_SUCCESS);
-	return (0);
 }

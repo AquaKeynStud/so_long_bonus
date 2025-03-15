@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:30:30 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/12 16:46:30 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/15 13:47:00 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	update_display(t_data *data, t_map *map, t_case *aim)
 	int		winw;
 	int		winh;
 	int		padding;
-	char	*moves;
 
 	winw = data->winw;
 	winh = data->winh;
@@ -30,10 +29,10 @@ void	update_display(t_data *data, t_map *map, t_case *aim)
 	print_win(data, get_axis(pos, 10, winh - 5), "Moves :", ++data->moves);
 	print_win(data, get_axis(pos, winw / 2 - padding, 20), "Player x:", aim->x);
 	print_win(data, get_axis(pos, winw / 2 + padding, 20), "y:", aim->y);
-	print_win(data, get_axis(pos, 10, 20), "Collectibles :", map->collectible);
-	moves = ft_itoa(data->moves);
-	print_info("⋆｡⋆✧ 𝗠𝗼𝘃𝗲𝘀 ✧⋆｡⋆ ➤ %s", moves);
-	free(moves);
+	print_win(data, get_axis(pos, 10, 20), "🐈‍⬛ Collectibles :", map->items);
+	ft_printf("\033[33m\033[1m\033[47m      ");
+	ft_printf("⋆｡⋆✧ 𝗠𝗼𝘃𝗲𝘀 ✧⋆｡⋆ ➤ %i", data->moves);
+	ft_printf("     \033[0m\n");
 }
 
 bool	move_player(t_data *data, t_map *map, t_case *aim)
@@ -45,12 +44,18 @@ bool	move_player(t_data *data, t_map *map, t_case *aim)
 	x = data->pyx[1];
 	if (aim->type == '1')
 		return (true);
-	else if (aim->type == 'E' && map->collectible != 0)
-		return (err("You must have collected all the eggs before exiting !"));
+	else if (aim->type == 'E' && map->items != 0)
+		return (err("🏮 You must have collected all the cats before exiting !"));
 	if (aim->type == 'C')
-		map->collectible--;
+	{
+		map->items--;
+		map->map[y][x].rand_asset = 0;
+	}
 	else if (aim->type == 'E' || aim->type == 'M')
+	{
+		data->game_status = VICTORY * aim->type == 'E';
 		return (mlx_loop_end(data->mlx));
+	}
 	map->map[y][x].type = '0';
 	aim->type = 'P';
 	update_display(data, map, aim);

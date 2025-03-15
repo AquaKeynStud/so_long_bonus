@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:51:56 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/13 19:43:34 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/14 15:12:55 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ void	*get_img(t_data *data, t_images img, int y, int x)
 	map = (*data->map);
 	type = type_of(map->map[y][x]);
 	if (type == 0)
-		return (img.floor[map->map[y][x].floor_type]);
+		return (img.floor[map->map[y][x].rand_asset]);
 	if (type == 1)
-		return (img.wall);
+		return (img.wall[map->map[y][x].rand_asset]);
 	if (type == 2)
 		return (img.player[img.direction]);
 	if (type == 3)
-		return (img.collec);
+		return (img.collec[img.frame]);
 	if (type == 4)
-		return (img.exit);
+		return (img.exit[img.frame]);
 	if (type == 5)
 		return (img.slime[img.frame]);
 	return (NULL);

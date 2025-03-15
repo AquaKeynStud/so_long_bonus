@@ -6,38 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:15:19 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/13 15:05:10 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/15 11:48:29 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	display_images(t_data *data, t_images img, t_map *map)
-{
-	int		x;
-	int		y;
-	void	*mlx;
-	void	*win;
-	void	*image;
-
-	y = 0;
-	mlx = data->mlx;
-	win = data->win;
-	while (y < map->height)
-	{
-		x = 0;
-		while (x < map->width)
-		{
-			image = get_img(data, img, y, x);
-			if (image)
-				mlx_put_image_to_window(mlx, win, image, x * SX, y * SY);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	init_bounds(t_map *map, int *pos, int *bound)
+static void	init_bounds(t_map *map, int *pos, int *bound)
 {
 	bound[0] = pos[0] - (MAXW / 2);
 	bound[1] = pos[0] + (MAXW / 2);
@@ -62,6 +37,31 @@ void	init_bounds(t_map *map, int *pos, int *bound)
 	{
 		bound[0] -= bound[1] - map->width;
 		bound[1] = map->width;
+	}
+}
+
+void	display_images(t_data *data, t_images img, t_map *map)
+{
+	int		x;
+	int		y;
+	void	*mlx;
+	void	*win;
+	void	*image;
+
+	y = 0;
+	mlx = data->mlx;
+	win = data->win;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			image = get_img(data, img, y, x);
+			if (image)
+				mlx_put_image_to_window(mlx, win, image, x * SX, y * SY);
+			x++;
+		}
+		y++;
 	}
 }
 
@@ -131,5 +131,5 @@ void	init_display(t_data data, t_map *map, t_images images)
 	print_win(&data, get_axis(pos, 10, winh - 5), "Moves :", data.moves);
 	print_win(&data, get_axis(pos, winw / 2 - pad, 20), "Player x:", pyx[1]);
 	print_win(&data, get_axis(pos, winw / 2 + pad, 20), "y:", pyx[0]);
-	print_win(&data, get_axis(pos, 10, 20), "Collectibles :", map->collectible);
+	print_win(&data, get_axis(pos, 10, 20), "🐈‍⬛ Collectibles :", map->items);
 }
