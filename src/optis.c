@@ -6,11 +6,11 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:52:54 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/15 10:27:48 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/16 12:35:45 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "printers.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>

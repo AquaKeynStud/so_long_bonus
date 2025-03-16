@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 16:10:11 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 12:40:29 by arocca           ###   ########.fr       */
+/*   Created: 2025/03/16 12:38:27 by arocca            #+#    #+#             */
+/*   Updated: 2025/03/16 12:39:22 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef UTILS_H
+# define UTILS_H
 
 /* -- Includes -- */
-# include "so_long.h"
-# include <stdlib.h>
-# include <stdbool.h>
+#include "so_long.h"
 
-/* -- Structures -- */
-typedef struct s_queue
-{
-	t_case	**q;
-	int		front;
-	int		rear;
-	int		size;
-}				t_queue;
+/* -- Utils -- */
+char	*ft_itoa(int n);
 
-/* -- Functions -- */
-bool	get_slimes(t_map *map);
-bool	is_item_unreachable(t_case cell);
-void	bfs(t_map *map, int start_x, int start_y);
-int		err_map_parsing(t_map *map, t_data *data, const char *file);
+int		type_of(t_case cell);
+int		get_pos(t_map *map, char axis);
+int		browse_map(t_map *map, bool (*function)(t_case cell));
+int		*get_axis(int tab[2], int x, int y);
+
+void	*get_img(t_data *data, t_images img, int y, int x);
+
+/* -- Optimisations -- */
+bool	running_under_valgrind(void);
 
 #endif

@@ -6,11 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/15 14:19:46 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/16 12:44:48 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "printers.h"
+#include "utils.h"
+#include "bonus.h"
 
 int	close_window(t_data *data, int exit_code)
 {
@@ -26,9 +28,9 @@ int	close_window(t_data *data, int exit_code)
 	if (exit_code == EXIT_SUCCESS && data->game_status == VICTORY)
 		print_green("🎋 • Congratulation, you won ! • 🏆");
 	else if (exit_code == EXIT_SUCCESS && data->game_status == DEFEAT)
-		err("🪦 • Player died... D: • ⚰️");
+		err("🪦  • Player died... D: • ⚰️ ");
 	else if (exit_code == EXIT_SUCCESS && data->game_status == RUNNING)
-		err("♨️ • So_long program canceled • 🛟");
+		err("♨️  • So_long program canceled • 🛟");
 	exit(exit_code);
 }
 
@@ -57,7 +59,7 @@ static bool	window_create(t_data *data, t_map **map, t_images *images)
 		free(data->mlx);
 		return (false);
 	}
-	print_info_int("🖥️ Window size : %ix%i 🪟", data->winw, data->winh);
+	print_info_int("🖥️  Window size : %ix%i 🪟 ", data->winw, data->winh);
 	return (true);
 }
 

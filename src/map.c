@@ -6,14 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/15 16:41:17 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/16 12:40:36 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "parsing.h"
-#include <fcntl.h>
-#include <unistd.h>
+#include "printers.h"
+#include "utils.h"
 #include <errno.h>
 
 bool	free_map(t_map **map)
@@ -145,6 +144,6 @@ bool	get_map(const char *file, t_map **map, t_data *data)
 	if (err_map_parsing(*map, data, file) || !get_slimes(*map))
 		return (free_map(map));
 	data->map = map;
-	print_info_int("🏔️ Map height & width : %ix%i 🏞️ ", (*map)->width, (*map)->height);
+	print_info_int("🏔️  Map size : %ix%i 🏞️ ", (*map)->width, (*map)->height);
 	return (true);
 }

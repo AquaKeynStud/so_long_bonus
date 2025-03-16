@@ -6,11 +6,12 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:50:10 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/14 00:39:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/16 12:45:03 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "bonus.h"
+#include "utils.h"
 
 void	animate(t_data *data)
 {

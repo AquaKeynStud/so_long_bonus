@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/15 14:22:54 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/16 12:49:27 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define SO_LONG_H
 
 /* -- Includes -- */
-# include <stdlib.h>
-# include <stdbool.h>
 # include "mlx.h"
+# include <stdlib.h>
 # include "mlx_int.h"
+# include <stdbool.h>
 # include "ft_printf.h"
 
 /* -- Structures -- */
@@ -28,11 +28,11 @@ typedef struct s_images
 	int		anim_frame;
 	int		anim_speed;
 	void	*wall[4];
+	void	*exit[4];
 	void	*floor[4];
+	void	*slime[4];
 	void	*collec[4];
 	void	*player[4];
-	void	*exit[4];
-	void	*slime[4];
 }				t_images;
 
 typedef struct s_case
@@ -46,26 +46,26 @@ typedef struct s_case
 
 typedef struct s_map
 {
+	int		items;
 	int		width;
 	int		height;
 	int		slimes;
-	int		items;
 	t_case	**map;
 	t_case	**slime;
 }				t_map;
 
 typedef struct s_data
 {
-	bool		keys[256];
-	int			pyx[2];
-	int			moves;
+	int			gen;
 	int			winw;
 	int			winh;
-	int			gen;
+	int			moves;
+	int			pyx[2];
 	int			max_gen;
 	int			game_status;
 	void		*mlx;
 	void		*win;
+	bool		keys[256];
 	t_images	*images;
 	t_map		**map;
 }				t_data;
@@ -78,20 +78,17 @@ typedef struct s_data
 
 # define CHARW 6
 
-# define KEY_ESC 65307
-# define KEY_W 122 // 119
-# define KEY_A 113 // 97
+# define KEY_W 119 // 122
+# define KEY_A 97 // 113
 # define KEY_S 115
 # define KEY_D 100
+# define KEY_ESC 65307
 
-# define RUNNING 2
 # define DEFEAT 0
 # define VICTORY 1
+# define RUNNING 2
 
-# define BLACK 0x000000
-# define WHITE 0xFFFFFF
-
-/* -- Main functions -- */
+/* -- Game functions -- */
 int		end_loop(t_data *data);
 int		close_window(t_data *data, int exit_code);
 
@@ -99,21 +96,14 @@ int		close_window(t_data *data, int exit_code);
 bool	free_map(t_map **map);
 bool	get_map(const char *file, t_map **map_data, t_data *data);
 
-void	animate(t_data *data);
-int		game_loop(t_data *data);
-
-/* -- Monsters functions -- */
-int		move_enemies(t_data *data);
-
 /* -- Input functions -- */
 int		key_pressed(int keycode, t_data *data);
 int		key_released(int keycode, t_data *data);
 int		handle_keypress(int keycode, t_data *data);
 bool	move_player(t_data *data, t_map *map, t_case *aim);
 
-/* -- Images functions -- */
+/* -- Display functions -- */
 bool	init_images(t_data *data, t_images *img);
-bool	load_player(t_data *data, t_images *img);
 
 void	free_images(t_data *data, t_images *img);
 void	update_display(t_data *data, t_map *map, t_case *aim);
@@ -121,33 +111,5 @@ void	update_images(t_data *data, t_case *aim, int x, int y);
 void	init_display(t_data data, t_map *map, t_images images);
 void	display_images(t_data *data, t_images img, t_map *map_data);
 void	display_player(t_data *data, int *pos, t_images img, t_map *map_data);
-
-/* -- Print functions -- */
-int		err(char *message);
-int		err_errno(int errnum);
-int		err_v(char *message, char *value);
-
-void	print_title(void);
-int		print_green(char *message);
-int		print_info_int(char *message, int i, int j);
-int		print_info_str(char *message, char *i);
-
-void	print_map(t_map *map);
-void	print_verification(t_map *map);
-void	print_win(t_data *data, int pos[2], char *text, int moves);
-void	print_on_win(t_data *data, int *axis, int color, char *txt);
-
-/* -- Utils -- */
-char	*ft_itoa(int n);
-
-int		type_of(t_case cell);
-int		get_pos(t_map *map, char axis);
-int		browse_map(t_map *map, bool (*function)(t_case cell));
-int		*get_axis(int tab[2], int x, int y);
-
-void	*get_img(t_data *data, t_images img, int y, int x);
-
-/* -- Optimisations -- */
-bool	running_under_valgrind(void);
 
 #endif

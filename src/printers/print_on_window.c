@@ -6,11 +6,11 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 10:26:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/11 14:17:04 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/16 12:36:00 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "printers.h"
 
 static int	count_digit(int n)
 {

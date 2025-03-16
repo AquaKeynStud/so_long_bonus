@@ -6,11 +6,12 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:15:19 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/15 11:48:29 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/16 12:41:27 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "printers.h"
+#include "utils.h"
 
 static void	init_bounds(t_map *map, int *pos, int *bound)
 {
@@ -131,5 +132,5 @@ void	init_display(t_data data, t_map *map, t_images images)
 	print_win(&data, get_axis(pos, 10, winh - 5), "Moves :", data.moves);
 	print_win(&data, get_axis(pos, winw / 2 - pad, 20), "Player x:", pyx[1]);
 	print_win(&data, get_axis(pos, winw / 2 + pad, 20), "y:", pyx[0]);
-	print_win(&data, get_axis(pos, 10, 20), "🐈‍⬛ Collectibles :", map->items);
+	print_win(&data, get_axis(pos, 10, 20), "Collectibles :", map->items);
 }

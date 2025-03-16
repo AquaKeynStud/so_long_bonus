@@ -6,11 +6,11 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:43:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/15 13:51:53 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/16 12:37:05 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "printers.h"
 
 void	free_images(t_data *data, t_images *img)
 {
@@ -91,7 +91,7 @@ bool	load_textures(t_data *data, t_images *img)
 		return (false);
 	paths[0] = "./assets/p_down.xpm";
 	paths[1] = "./assets/p_right.xpm";
-	paths[2] = "./assets/p_left.xpm"; 
+	paths[2] = "./assets/p_left.xpm";
 	paths[3] = "./assets/p_up.xpm";
 	if (!load_images(data->mlx, img->player, paths))
 		return (false);

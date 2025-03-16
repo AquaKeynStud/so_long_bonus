@@ -6,11 +6,12 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:30:30 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/15 13:47:00 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/16 12:41:34 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "printers.h"
+#include "utils.h"
 
 void	update_display(t_data *data, t_map *map, t_case *aim)
 {
@@ -29,8 +30,8 @@ void	update_display(t_data *data, t_map *map, t_case *aim)
 	print_win(data, get_axis(pos, 10, winh - 5), "Moves :", ++data->moves);
 	print_win(data, get_axis(pos, winw / 2 - padding, 20), "Player x:", aim->x);
 	print_win(data, get_axis(pos, winw / 2 + padding, 20), "y:", aim->y);
-	print_win(data, get_axis(pos, 10, 20), "🐈‍⬛ Collectibles :", map->items);
-	ft_printf("\033[33m\033[1m\033[47m      ");
+	print_win(data, get_axis(pos, 10, 20), "Collectibles :", map->items);
+	ft_printf("\033[35m\033[1m\033[107m      ");
 	ft_printf("⋆｡⋆✧ 𝗠𝗼𝘃𝗲𝘀 ✧⋆｡⋆ ➤ %i", data->moves);
 	ft_printf("     \033[0m\n");
 }
