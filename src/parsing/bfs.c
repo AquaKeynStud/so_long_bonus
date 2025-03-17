@@ -6,12 +6,12 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 11:44:59 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/08 10:11:28 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/17 12:25:31 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "parsing.h"
+#include "printers.h"
 
 t_queue	*queue_init(t_map *map, int start_x, int start_y)
 {
@@ -103,5 +103,14 @@ bool	is_item_unreachable(t_case cell)
 {
 	if (cell.verified == true || cell.type == '1' || cell.type == '0')
 		return (false);
+	print_info_int("Error found at cell : (%i, %i)\n", cell.y, cell.x);
+	if (cell.type == 'P')
+		err("📛 Error : The player can't move");
+	else if (cell.type == 'C')
+		err("📛 Error : A collectible can't be reached");
+	else if (cell.type == 'E')
+		err("📛 Error : The exit can't be reached");
+	else if (cell.type == 'M')
+		err("📛 Error : A monster is stuck");
 	return (true);
 }

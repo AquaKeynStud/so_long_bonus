@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:55:15 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 12:41:14 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/16 13:19:47 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ int	err_map_parsing(t_map *map, t_data *data, const char *file)
 	bfs(map, data->pyx[1], data->pyx[0]);
 	print_verification(map);
 	if (browse_map(map, is_item_unreachable))
-		return (err("📛 Error : Some objects on the map are unreachable"));
+		return (1);
 	return (0);
 }
