@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 12:40:36 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/17 13:14:03 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ bool	get_map(const char *file, t_map **map, t_data *data)
 		return (false);
 	(*map)->width = 0;
 	(*map)->height = 0;
+	print_info_str("🧭 Start of map reading attempt on 🗺️  %s🗺️ ", (char *)file);
 	if (map_size_init_err(file, &(*map)->width, &(*map)->height))
 		return (free_map(map));
 	if ((*map)->height > 27000)
@@ -137,7 +138,7 @@ bool	get_map(const char *file, t_map **map, t_data *data)
 		err("Error : Map height is too big");
 		return (free_map(map));
 	}
-	print_info_str("🌅 Starting creation of map : %s", (char *)file);
+	print_info_str("🌅 Starting creation of map : 🗺️  %s🗺️ ", (char *)file);
 	init_map(*map);
 	fill_map(file, (*map));
 	get_axis(data->pyx, get_pos(*map, 'y'), get_pos(*map, 'x'));

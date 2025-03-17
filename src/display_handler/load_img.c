@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:43:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 12:37:05 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/17 13:08:45 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ bool	load_textures(t_data *data, t_images *img)
 
 bool	init_images(t_data *data, t_images *img)
 {
+	print_info_str("🪷 Loading assets... 🍡", NULL);
 	img->direction = 0;
 	img->frame = 0;
 	img->anim_frame = 0;

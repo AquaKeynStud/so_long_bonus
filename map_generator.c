@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define WIDTH 28000
-#define HEIGHT 27000
+#define WIDTH 50
+#define HEIGHT 1000
 #define PLAYER 'P'
 #define COLLECTABLE 'C'
 #define EXIT 'E'
@@ -102,9 +102,9 @@ int main() {
     init_map(game_map);
 
     // Sauvegarder la map dans un fichier .ber
-    save_map_to_file(game_map, "./maps/28000x27000.ber");
+    save_map_to_file(game_map, "./maps/50x1000.ber");
 
-    printf("La map a été sauvegardée dans 'map_20000x10000.ber'.\n");
+    printf("La map a été sauvegardée dans 'maps/'.\n");
 
     // Libération de la mémoire allouée
     for (int i = 0; i < HEIGHT; i++) {

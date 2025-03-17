@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:55:15 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 13:19:47 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/17 13:03:19 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static bool	double_exit_error(t_case cell)
 
 int	err_map_parsing(t_map *map, t_data *data, const char *file)
 {
-	print_info_str("Starting verification of map : 🗺️  %s 🗺️ ", (char *)file);
+	print_info_str("🧬 Starting verification of map : 🗺️  %s 🗺️ ", (char *)file);
 	if (map->width == 0 && map->height == 0)
 		return (err("The map file is empty"));
 	if (map->width == map->height)
@@ -68,7 +68,8 @@ int	err_map_parsing(t_map *map, t_data *data, const char *file)
 	if (map->items == 0)
 		return (err("📛 Error : The map must contain at least one collectible"));
 	bfs(map, data->pyx[1], data->pyx[0]);
-	print_verification(map);
+	if (map->width <= 50 && map->height <= 1000)
+		print_verification(map);
 	if (browse_map(map, is_item_unreachable))
 		return (1);
 	return (0);
