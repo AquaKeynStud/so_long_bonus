@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 12:57:56 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/20 17:01:44 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ typedef struct s_data
 /* -- macros -- */
 # define SX 64
 # define SY 64
-# define MAXH 16
-# define MAXW 30
 
 # define CHARW 6
 

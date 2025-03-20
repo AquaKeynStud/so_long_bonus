@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:38:27 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 12:39:22 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/20 16:59:53 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define UTILS_H
 
 /* -- Includes -- */
-#include "so_long.h"
+# include "so_long.h"
 
 /* -- Utils -- */
 char	*ft_itoa(int n);

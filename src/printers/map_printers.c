@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:09:14 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/17 13:43:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/20 11:31:28 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,19 @@ static void	print_type(t_case cell)
 		else if (cell.type == 'E')
 			ft_printf("🌸 ");
 		else if (cell.type == 'M')
-			ft_printf("☣️  ");
+			ft_printf("🧫 ");
 	}
 	else
 	{
 		if (cell.verified)
 			ft_printf("🌱 ");
 		else
-			ft_printf("🍁 ");
+		{
+			if (cell.type == '1')
+				ft_printf("🍁 ");
+			else
+				ft_printf("🍃 ");
+		}
 	}
 }
 
@@ -70,14 +75,14 @@ void	print_verification(t_map *map)
 	while (i < map->height)
 	{
 		j = 0;
-		ft_printf("%3i ", i);
+		ft_printf("%4i ", i + 1);
 		while (j < map->width)
 			print_type(map->map[i][j++]);
 		ft_printf("\n");
 		i++;
 	}
 	j = 0;
-	ft_printf("%4c", ' ');
+	ft_printf("%5c", ' ');
 	while (j++ < map->width)
 	{
 		ft_printf("%2i ", j);

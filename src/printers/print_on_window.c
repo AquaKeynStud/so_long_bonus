@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 10:26:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 12:36:00 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/20 17:05:19 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	print_on_win(t_data *data, int *axis, int color, char *txt)
 void	print_win(t_data *data, int pos[2], char *text, int moves)
 {
 	char	*str;
+	t_map	*map;
 	int		letter_width;
 	int		x_len;
 	int		y_len;
@@ -81,8 +82,9 @@ void	print_win(t_data *data, int pos[2], char *text, int moves)
 	letter_width = 6;
 	x_len = pos[0] / SX;
 	y_len = pos[1] / SY;
-	if ((*data->map)->height < MAXH || (*data->map)->width < MAXW)
-		update_images(data, &(*data->map)->map[y_len][x_len + 1], x_len, y_len);
+	map = (*data->map);
+	if (map->height < (data->winh / SY) || map->width < (data->winw / SX))
+		update_images(data, &map->map[y_len][x_len + 1], x_len, y_len);
 	if (*text)
 	{
 		print_on_win(data, pos, WHITE, text);

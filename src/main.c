@@ -6,12 +6,11 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 12:44:48 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/20 16:31:29 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printers.h"
-#include "utils.h"
 #include "bonus.h"
 
 int	close_window(t_data *data, int exit_code)
@@ -34,25 +33,20 @@ int	close_window(t_data *data, int exit_code)
 	exit(exit_code);
 }
 
-static bool	window_create(t_data *data, t_map **map, t_images *images)
+static bool	window_create(t_data *data, int	*mapw, int *maph)
 {
-	int	width;
-	int	height;
-
 	data->moves = 0;
-	data->gen = 0;
-	data->images = images;
-	width = (*map)->width;
-	height = (*map)->height;
 	data->game_status = RUNNING;
-	data->winw = (width * (width <= MAXW) + MAXW * (width > MAXW)) * SY;
-	data->winh = (height * (height <= MAXH) + MAXH * (height > MAXH)) * SX;
-	data->max_gen = 55000;
-	if (running_under_valgrind())
-		data->max_gen = 6500;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (false);
+	mlx_get_screen_size(data->mlx, &data->winw, &data->winh);
+	data->winw = (data->winw - (data->winw % SX));
+	data->winh = (data->winh - (data->winh % SY));
+	if (*mapw <= (data->winw / SX))
+		data->winw = *mapw * SX;
+	if (*maph <= (data->winh / SY))
+		data->winh = *maph * SY;
 	data->win = mlx_new_window(data->mlx, data->winw, data->winh, "so_long");
 	if (!data->win)
 	{
@@ -98,7 +92,7 @@ int	main(int argc, char **argv)
 		return (err_v("Error : Format has to be : %s <map>.ber", argv[0]));
 	if (!get_map(argv[1], &map, &data))
 		return (1);
-	if (!window_create(&data, &map, &images))
+	if (!window_create(&data, &map->width, &map->height))
 		return (err("Error : Something went wrong during window creation"));
 	if (!init_images(&data, &images))
 		return (close_window(&data, EXIT_FAILURE));

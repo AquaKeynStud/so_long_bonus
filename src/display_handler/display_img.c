@@ -6,19 +6,19 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:15:19 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 12:41:27 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/20 17:06:38 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printers.h"
 #include "utils.h"
 
-static void	init_bounds(t_map *map, int *pos, int *bound)
+static void	init_bounds(t_data *data, t_map *map, int *pos, int *bound)
 {
-	bound[0] = pos[0] - (MAXW / 2);
-	bound[1] = pos[0] + (MAXW / 2);
-	bound[2] = pos[1] - (MAXH / 2);
-	bound[3] = pos[1] + (MAXH / 2);
+	bound[0] = pos[0] - ((data->winw / SX) / 2);
+	bound[1] = pos[0] + ((data->winw / SX) / 2);
+	bound[2] = pos[1] - ((data->winh / SY) / 2);
+	bound[3] = pos[1] + ((data->winh / SY) / 2);
 	if (bound[2] < 0)
 	{
 		bound[3] += -bound[2];
@@ -75,7 +75,7 @@ void	display_player(t_data *data, int *pos, t_images imgs, t_map *map)
 	void	*img;
 
 	y = 0;
-	init_bounds(map, pos, bounds);
+	init_bounds(data, map, pos, bounds);
 	reset_x = bounds[0];
 	while (bounds[2] < bounds[3])
 	{
@@ -125,7 +125,7 @@ void	init_display(t_data data, t_map *map, t_images images)
 	winh = data.winh;
 	pad = ((ft_strlen("Player x:") + 6) * CHARW) / 2;
 	get_axis(pos, data.pyx[1], data.pyx[0]);
-	if (map->height > MAXH || map->width > MAXW)
+	if (map->height > (data.winh / SY) || map->width > (data.winw / SX))
 		display_player(&data, pos, images, map);
 	else
 		display_images(&data, images, map);

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:30:30 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 12:41:34 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/20 17:07:00 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	update_display(t_data *data, t_map *map, t_case *aim)
 	winw = data->winw;
 	winh = data->winh;
 	padding = ((ft_strlen("Player x:") + 6) * CHARW) / 2;
-	if (map->height > MAXH || map->width > MAXW)
+	if (map->height > (data->winh / SY) || map->width > (data->winw / SX))
 		display_player(data, get_axis(pos, aim->x, aim->y), *data->images, map);
 	else
 		update_images(data, aim, data->pyx[1], data->pyx[0]);

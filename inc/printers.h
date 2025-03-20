@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:33:19 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/17 13:13:22 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/20 17:00:00 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,5 @@ void	print_map(t_map *map);
 void	print_verification(t_map *map);
 void	print_win(t_data *data, int pos[2], char *text, int moves);
 void	print_on_win(t_data *data, int *axis, int color, char *txt);
-
 
 #endif
