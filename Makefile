@@ -114,7 +114,12 @@ norminette:
 	norminette $(D_SRC) $(D_INC)
 
 valgrind: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./so_long maps/500x100.ber
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./so_long maps/$(MAP)
+
+MAP := $(word 2, $(MAKECMDGOALS))
+
+%:
+	@:
 
 signature:
 	@echo "$(GREY) ⠀⠀⠀⠀⠀⠀⠀⣀⣀"
