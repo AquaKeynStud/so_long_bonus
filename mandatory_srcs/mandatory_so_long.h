@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   mandatory_so_long.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/21 14:56:14 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/21 15:03:01 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef MANDATORY_SO_LONG_H
+# define MANDATORY_SO_LONG_H
 
 /* -- Includes -- */
 # include "mlx.h"
@@ -23,23 +23,17 @@
 /* -- Structures -- */
 typedef struct s_images
 {
-	int		frame;
-	int		direction;
-	int		anim_frame;
-	int		anim_speed;
-	void	*wall[4];
-	void	*exit[4];
-	void	*floor[4];
-	void	*collec[4];
-	void	*player[4];
-	void	*slime[4];
+	void	*wall;
+	void	*exit;
+	void	*floor;
+	void	*collec;
+	void	*player;
 }				t_images;
 
 typedef struct s_case
 {
 	int		x;
 	int		y;
-	int		rand_asset;
 	char	type;
 	bool	verified;
 }				t_case;
@@ -49,26 +43,28 @@ typedef struct s_map
 	int		items;
 	int		width;
 	int		height;
-	int		slimes;
 	t_case	**map;
-	t_case	**slime;
 }				t_map;
 
 typedef struct s_data
 {
-	int			gen;
 	int			winw;
 	int			winh;
 	int			moves;
 	int			pyx[2];
-	int			max_gen;
-	int			game_status;
 	void		*mlx;
 	void		*win;
-	bool		keys[256];
 	t_images	*images;
 	t_map		**map;
 }				t_data;
+
+typedef struct s_queue
+{
+	t_case	**q;
+	int		front;
+	int		rear;
+	int		size;
+}				t_queue;
 
 /* -- macros -- */
 # define SX 64
@@ -82,11 +78,7 @@ typedef struct s_data
 # define KEY_D 100
 # define KEY_ESC 65307
 
-# define DEFEAT 0
-# define VICTORY 1
-# define RUNNING 2
-
-/* -- Game functions -- */
+/* -- MinilibX functions -- */
 int		end_loop(t_data *data);
 int		close_window(t_data *data, int exit_code);
 
@@ -94,20 +86,30 @@ int		close_window(t_data *data, int exit_code);
 bool	free_map(t_map **map);
 bool	get_map(const char *file, t_map **map_data, t_data *data);
 
+/* -- Parsing functions -- */
+bool	is_item_unreachable(t_case cell);
+void	bfs(t_map *map, int start_x, int start_y);
+int		err_map_parsing(t_map *map, t_data *data);
+
 /* -- Input functions -- */
-int		key_pressed(int keycode, t_data *data);
-int		key_released(int keycode, t_data *data);
 int		handle_keypress(int keycode, t_data *data);
-bool	move_player(t_data *data, t_map *map, t_case *aim);
 
 /* -- Display functions -- */
 bool	init_images(t_data *data, t_images *img);
-
 void	free_images(t_data *data, t_images *img);
-void	update_display(t_data *data, t_map *map, t_case *aim);
 void	update_images(t_data *data, t_case *aim, int x, int y);
-void	init_display(t_data data, t_map *map, t_images images);
 void	display_images(t_data *data, t_images img, t_map *map_data);
-void	display_player(t_data *data, int *pos, t_images img, t_map *map_data);
+
+/* -- Print functions -- */
+int		err(void);
+void	print_title(void);
+void	print_verification(t_map *map);
+
+/* -- Utils functions -- */
+int		type_of(t_case cell);
+int		get_pos(t_map *map, char axis);
+int		*get_axis(int tab[2], int x, int y);
+void	*get_img(t_data *data, t_images img, int y, int x);
+int		browse_map(t_map *map, bool (*function)(t_case cell));
 
 #endif
