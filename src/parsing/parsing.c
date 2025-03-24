@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:55:15 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/21 15:17:48 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/24 18:40:17 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ int	err_map_parsing(t_map *map, t_data *data, const char *file)
 {
 	print_info_str("🧬 Starting verification of map : 🗺️  %s 🗺️ ", (char *)file);
 	if (map->width == 0 && map->height == 0)
-		return (err("📛 Error : The map file is empty"));
-	if (map->width == map->height)
-		return (err("📛 Error : The map must not be a square"));
+		return (err("📛 Error : The map file seems empty"));
 	if (isnt_wall_surrounded(map, map->width - 1, map->height - 1))
 		return (1);
 	if (browse_map(map, is_type_forbidden))

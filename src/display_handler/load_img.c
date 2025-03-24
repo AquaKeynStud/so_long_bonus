@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:43:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/17 18:43:00 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/24 19:05:34 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ bool	init_images(t_data *data, t_images *img)
 	print_info_str("🪷 Loading assets... 🍡", NULL);
 	if (!(load_anims(data, img) && load_textures(data, img)))
 		return (false);
-	print_info_str(" 🗻 Assets loaded successfully ! 🧬", NULL);
+	print_info_str("🗻 Assets loaded successfully ! 🧬", NULL);
 	return (true);
 }

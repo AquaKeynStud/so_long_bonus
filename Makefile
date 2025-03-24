@@ -93,42 +93,32 @@ OBJ			= $(addprefix $(D_OBJ), $(patsubst %.c, %.o, $(LST_SRCS)))
 
 all:	$(NAME)
 
+$(D_OBJ):
+	@mkdir -p $@
+
 $(NAME):	$(MOBJ) $(MINC) lmlx
-
-	@$(CC) $(CFLAGS) $(MOBJ) -I$(D_MAN) -L$(D_LIB) -lmlx -lXext -lX11 -lm -lftprintf -o $@
+	@$(CC) $(CFLAGS) $(MOBJ) -I$(D_MAN) -L$(D_LIB) -lmlx -lXext -lX11 -lftprintf -lgnl -o $@
 	@echo "\e[0;32mProgramme créé avec succès ! 🧬\e[0m"
-
 
 bonus:	$(D_OBJ).bonus
 
-
-$(D_OBJ).bonus:	$(OBJ) $(INC) lmlx
-
-	@$(CC) $(CFLAGS) $(OBJ) -I$(D_INC) -L$(D_LIB) -lmlx -lXext -lX11 -lm -lftprintf -o $(NAME)
+$(D_OBJ).bonus:	$(OBJ) $(INC) lmlx | $(D_OBJ) Makefile
+	@$(CC) $(CFLAGS) $(OBJ) -I$(D_INC) -L$(D_LIB) -lmlx -lXext -lX11 -lftprintf -lgnl -o $(NAME)
 	@$(MAKE) signature
 	@touch $(D_OBJ).bonus
 
-
-$(D_OBJ)%.o:	$(D_MAN)%.c $(MINC) $(D_MLX)mlx.h $(D_MLX)mlx_int.h
-
-	@mkdir -p $(D_OBJ)
+$(D_OBJ)%.o:	$(D_MAN)%.c $(MINC) $(D_MLX)mlx.h $(D_MLX)mlx_int.h | $(D_OBJ) Makefile
 	$(CC) $(CFLAGS) -I$(D_MAN) -I$(D_MLX) -c $< -o $@
-
 
 vpath %.c $(D_SRCS)
 
-$(D_OBJ)%.o:	%.c $(INC) $(D_MLX)mlx.h $(D_MLX)mlx_int.h
-
-	@mkdir -p $(D_OBJ)
+$(D_OBJ)%.o:	%.c $(INC) $(D_MLX)mlx.h $(D_MLX)mlx_int.h | $(D_OBJ) Makefile
 	$(CC) $(CFLAGS) -I$(D_INC) -I$(D_MLX) -c $< -o $@
 
-
 lmlx:	$(D_MLX)
-
 	@$(MAKE) -s -w -C $(D_MLX) 2>/dev/null
 	@mv $(D_MLX)libmlx.a $(D_LIB)libmlx.a
 	@echo "\e[0;36mArchive Minilibx créée avec succès ! 🌅\e[0m"
-
 
 clean:
 ifeq ($(SHOW_MSG_CLEAN), true)
@@ -137,34 +127,27 @@ endif
 	@$(MAKE) -s -w -C $(D_MLX) clean
 	@$(RM) $(D_OBJ)
 
-
 fclean:
 	@$(MAKE) -s -w -C $(D_MLX) clean
 	@$(MAKE) -s SHOW_MSG_CLEAN=false clean
 	@$(RM) $(NAME) .bonus $(D_LIB)libmlx.a
 	@echo "\e[0;34mExecutable de $(NAME) nettoyé 🧼\e[0m"
 
-
 re:
 	@$(MAKE) fclean
 	@$(MAKE) all
 	@echo "\e[0;32mProgramme $(NAME) recréé avec succès ! 🫡\e[0m"
 
-
 norminette:
 	norminette $(D_SRC) $(D_INC) $(D_MAN)
 
-
 MAP := $(word 2, $(MAKECMDGOALS))
-
 
 %:
 	@:
 
-
 valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./so_long maps/$(MAP)
-
 
 signature:
 	@echo "$(GREY) ⠀⠀⠀⠀⠀⠀⠀⣀⣀"

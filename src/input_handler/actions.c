@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:30:30 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/20 17:07:00 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/24 19:12:09 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	update_display(t_data *data, t_map *map, t_case *aim)
 	print_win(data, get_axis(pos, winw / 2 + padding, 20), "y:", aim->y);
 	print_win(data, get_axis(pos, 10, 20), "Collectibles :", map->items);
 	ft_printf("\033[35m\033[1m\033[107m      ");
-	ft_printf("⋆｡⋆✧ 𝗠𝗼𝘃𝗲𝘀 ✧⋆｡⋆ ➤ %i", data->moves);
+	ft_printf("𝗠𝗼𝘃𝗲𝘀 ➤ %i", data->moves);
 	ft_printf("     \033[0m\n");
 }
 

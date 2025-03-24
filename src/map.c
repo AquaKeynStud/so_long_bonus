@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/21 15:17:31 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/24 19:47:12 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,24 @@ static int	map_size_init_err(const char *file, int *width, int *height)
 {
 	int		fd;
 	int		count;
-	char	c;
+	char	*line;
 
 	count = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (err_errno(errno));
-	while (read(fd, &c, 1) > 0)
+	line = get_next_line(fd);
+	while (line)
 	{
-		if (c == '\n')
-		{
-			if (!count || ((*width) && count != (*width)) || (*width > 28000))
-				return (close(fd) + err("The map size is invalid"));
-			(*width) = count;
+		count = ft_strlen(line) - (line[ft_strlen(line) - 1] == '\n');
+		if (!count || count > 28000 || (count != (*width) && (*width) != 0))
+			return (close(fd) + err("The map size is invalid"));
+		(*width) = count;
+		if (count)
 			(*height)++;
-			count = 0;
-		}
-		else
-			count++;
+		count = 0;
+		line = get_next_line(fd);
 	}
-	if (count && count == (*width))
-		(*height)++;
 	return (close(fd));
 }
 
@@ -95,28 +92,28 @@ static bool	init_map(t_map *map)
 
 static void	fill_map(const char *file, t_map *map)
 {
-	char	c;
 	int		i;
 	int		j;
 	int		fd;
+	char	*line;
 
 	i = 0;
 	map->items = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return ;
-	while (i < map->height)
+	line = get_next_line(fd);
+	while (line)
 	{
 		j = 0;
 		while (j < map->width)
 		{
-			read(fd, &c, 1);
-			map->map[i][j].type = c;
-			if (c == 'C')
+			map->map[i][j].type = line[j];
+			if (line[j] == 'C')
 				map->items++;
 			j++;
 		}
-		read(fd, &c, 1);
+		line = get_next_line(fd);
 		i++;
 	}
 	close(fd);
@@ -129,7 +126,7 @@ bool	get_map(const char *file, t_map **map, t_data *data)
 		return (false);
 	(*map)->width = 0;
 	(*map)->height = 0;
-	print_info_str("🧭 Start of map reading attempt on 🗺️  %s🗺️ ", (char *)file);
+	print_info_str("🧭 Start reading attempt on 🗺️  %s 🗺️ ", (char *)file);
 	if (map_size_init_err(file, &(*map)->width, &(*map)->height))
 		return (free_map(map));
 	if ((*map)->height > 27000)
@@ -137,8 +134,9 @@ bool	get_map(const char *file, t_map **map, t_data *data)
 		err("📛 Error : Map height is too big");
 		return (free_map(map));
 	}
-	print_info_str("🌅 Starting creation of map : 🗺️  %s🗺️ ", (char *)file);
+	print_info_str("🌅 Starting creation of map... 🧪", NULL);
 	init_map(*map);
+	print_info_str("🍲 Start filling the map... 🀄", NULL);
 	fill_map(file, (*map));
 	get_axis(data->pyx, get_pos(*map, 'y'), get_pos(*map, 'x'));
 	if (err_map_parsing(*map, data, file) || !get_slimes(*map))

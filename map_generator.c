@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define WIDTH 50
-#define HEIGHT 1000
+#define WIDTH 28000
+#define HEIGHT 27000
 #define PLAYER 'P'
 #define COLLECTABLE 'C'
 #define EXIT 'E'

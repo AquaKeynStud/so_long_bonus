@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   m_parsing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:55:15 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/21 14:21:22 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/24 18:01:00 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static bool	double_exit(t_case cell)
 
 int	err_map_parsing(t_map *map, t_data *data)
 {
-	if ((map->width == 0 && map->height == 0) || (map->width == map->height))
+	if ((map->width == 0 && map->height == 0))
 		return (ft_printf("Error\n"));
 	if (isnt_wall_surrounded(map, map->width - 1, map->height - 1))
 		return (1);
