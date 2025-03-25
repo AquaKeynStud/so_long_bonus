@@ -6,12 +6,12 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:15:19 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/20 17:06:38 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/25 18:54:12 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printers.h"
 #include "utils.h"
+#include "printers.h"
 
 static void	init_bounds(t_data *data, t_map *map, int *pos, int *bound)
 {

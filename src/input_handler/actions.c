@@ -6,12 +6,12 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:30:30 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/24 19:12:09 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/25 18:54:06 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printers.h"
 #include "utils.h"
+#include "printers.h"
 
 void	update_display(t_data *data, t_map *map, t_case *aim)
 {

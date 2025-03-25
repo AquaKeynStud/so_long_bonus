@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:44:33 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/24 19:47:12 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/25 18:57:41 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,27 @@ static int	map_size_init_err(const char *file, int *width, int *height)
 {
 	int		fd;
 	int		count;
-	char	*line;
+	char	c;
 
 	count = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (err_errno(errno));
-	line = get_next_line(fd);
-	while (line)
+	while (read(fd, &c, 1) > 0)
 	{
-		count = ft_strlen(line) - (line[ft_strlen(line) - 1] == '\n');
-		if (!count || count > 28000 || (count != (*width) && (*width) != 0))
-			return (close(fd) + err("The map size is invalid"));
-		(*width) = count;
-		if (count)
+		if (c == '\n')
+		{
+			if (!count || ((*width) && count != (*width)) || (*width > 28000))
+				return (close(fd) + err("The map size is invalid"));
+			(*width) = count;
 			(*height)++;
-		count = 0;
-		line = get_next_line(fd);
+			count = 0;
+		}
+		else
+			count++;
 	}
+	if (count && count == (*width))
+		(*height)++;
 	return (close(fd));
 }
 
@@ -92,28 +95,28 @@ static bool	init_map(t_map *map)
 
 static void	fill_map(const char *file, t_map *map)
 {
+	char	c;
 	int		i;
 	int		j;
 	int		fd;
-	char	*line;
 
 	i = 0;
 	map->items = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return ;
-	line = get_next_line(fd);
-	while (line)
+	while (i < map->height)
 	{
 		j = 0;
 		while (j < map->width)
 		{
-			map->map[i][j].type = line[j];
-			if (line[j] == 'C')
+			read(fd, &c, 1);
+			map->map[i][j].type = c;
+			if (c == 'C')
 				map->items++;
 			j++;
 		}
-		line = get_next_line(fd);
+		read(fd, &c, 1);
 		i++;
 	}
 	close(fd);

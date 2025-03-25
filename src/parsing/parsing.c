@@ -6,13 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:55:15 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/24 18:40:17 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/25 18:54:01 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.h"
 #include "parsing.h"
 #include "printers.h"
-#include "utils.h"
 
 static bool	isnt_wall_surrounded(t_map *map, int width, int height)
 {

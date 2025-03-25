@@ -6,12 +6,12 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 11:43:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/24 19:05:34 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/25 18:54:14 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printers.h"
 #include "utils.h"
+#include "printers.h"
 
 void	free_images(t_data *data, t_images *img)
 {

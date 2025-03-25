@@ -72,7 +72,8 @@ LST_IMG		=	load_img.c			\
 LST_KEY		=	actions.c			\
 				input_detector.c	
 
-LST_MINC	=	mandatory_so_long.h
+LST_MINC	=	ft_printf.h			\
+				mandatory_so_long.h
 
 LST_INC		=	utils.h				\
 				bonus.h				\
@@ -97,13 +98,13 @@ $(D_OBJ):
 	@mkdir -p $@
 
 $(NAME):	$(MOBJ) $(MINC) lmlx
-	@$(CC) $(CFLAGS) $(MOBJ) -I$(D_MAN) -L$(D_LIB) -lmlx -lXext -lX11 -lftprintf -lgnl -o $@
-	@echo "\e[0;32mProgramme créé avec succès ! 🧬\e[0m"
+	@$(CC) $(CFLAGS) $(MOBJ) -I$(D_MAN) -L$(D_LIB) -lmlx -lXext -lX11 -lftprintf -o $@
+	@echo "\e[0;32mProgram created successfully ! 🧬\e[0m"
 
 bonus:	$(D_OBJ).bonus
 
 $(D_OBJ).bonus:	$(OBJ) $(INC) lmlx | $(D_OBJ) Makefile
-	@$(CC) $(CFLAGS) $(OBJ) -I$(D_INC) -L$(D_LIB) -lmlx -lXext -lX11 -lftprintf -lgnl -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -I$(D_INC) -L$(D_LIB) -lmlx -lXext -lX11 -lftprintf -o $(NAME)
 	@$(MAKE) signature
 	@touch $(D_OBJ).bonus
 
@@ -118,11 +119,11 @@ $(D_OBJ)%.o:	%.c $(INC) $(D_MLX)mlx.h $(D_MLX)mlx_int.h | $(D_OBJ) Makefile
 lmlx:	$(D_MLX)
 	@$(MAKE) -s -w -C $(D_MLX) 2>/dev/null
 	@mv $(D_MLX)libmlx.a $(D_LIB)libmlx.a
-	@echo "\e[0;36mArchive Minilibx créée avec succès ! 🌅\e[0m"
+	@echo "\e[0;36mMinilibx archive created successfully ! 🌅\e[0m"
 
 clean:
 ifeq ($(SHOW_MSG_CLEAN), true)
-	@echo "\e[0;36mJ'ai enlevé tous les objets relatifs à $(NAME) 🧹\e[0m"
+	@echo "\e[0;36mAll object files related to $(NAME) removed 🧹\e[0m"
 endif
 	@$(MAKE) -s -w -C $(D_MLX) clean
 	@$(RM) $(D_OBJ)
@@ -131,12 +132,12 @@ fclean:
 	@$(MAKE) -s -w -C $(D_MLX) clean
 	@$(MAKE) -s SHOW_MSG_CLEAN=false clean
 	@$(RM) $(NAME) .bonus $(D_LIB)libmlx.a
-	@echo "\e[0;34mExecutable de $(NAME) nettoyé 🧼\e[0m"
+	@echo "\e[0;34m$(NAME) executable deleted 🧼\e[0m"
 
 re:
 	@$(MAKE) fclean
 	@$(MAKE) all
-	@echo "\e[0;32mProgramme $(NAME) recréé avec succès ! 🫡\e[0m"
+	@echo "\e[0;32m$(NAME) program recreated successfully ! 🫡\e[0m"
 
 norminette:
 	norminette $(D_SRC) $(D_INC) $(D_MAN)

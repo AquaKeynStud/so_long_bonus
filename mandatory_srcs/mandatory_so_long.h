@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:51:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/24 18:34:52 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/25 19:00:55 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include "ft_printf.h"
-# include "get_next_line.h"
 
 /* -- Structures -- */
 typedef struct s_images

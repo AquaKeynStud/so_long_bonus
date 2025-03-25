@@ -6,12 +6,12 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 23:36:46 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/15 11:36:34 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/25 18:53:46 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include <errno.h>
+#include "so_long.h"
 
 int	err(char *message)
 {

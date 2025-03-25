@@ -6,12 +6,12 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:45:44 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/24 18:35:29 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/25 18:53:26 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printers.h"
 #include "bonus.h"
+#include "printers.h"
 
 int	close_window(t_data *data, int exit_code)
 {
@@ -90,11 +90,11 @@ int	main(int argc, char **argv)
 	map = NULL;
 	print_title();
 	if (argc != 2 || !verif_ext(argv[1], ".ber"))
-		return (err_v("Error : Format has to be : %s <map>.ber", argv[0]));
+		return (err_v("📛 Error : Format has to be : %s <map>.ber", argv[0]));
 	if (!get_map(argv[1], &map, &data))
 		return (1);
 	if (!window_create(&data, &map->width, &map->height))
-		return (err("Error : Something went wrong during window creation"));
+		return (err("📛 Error : Something went wrong during window creation"));
 	if (!init_images(&data, &images))
 		return (close_window(&data, EXIT_FAILURE));
 	init_display(data, map, images);

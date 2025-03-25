@@ -6,14 +6,14 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:52:54 by arocca            #+#    #+#             */
-/*   Updated: 2025/03/16 12:35:45 by arocca           ###   ########.fr       */
+/*   Updated: 2025/03/25 18:53:38 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printers.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
+#include "printers.h"
 
 static char	*ft_strstr(const char *big, const char *little)
 {
